@@ -1,0 +1,72 @@
+# =========================
+# Dependencies
+# =========================
+node_modules/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Native Build Outputs
+# =========================
+build/
+Release/
+Debug/
+out/
+dist/
+
+*.node
+*.o
+*.obj
+*.a
+*.lib
+*.exp
+*.dll
+*.so
+*.dylib
+
+# =========================
+# Coverage
+# =========================
+coverage/
+.nyc_output/
+
+# =========================
+# Cache
+# =========================
+.cache/
+.tmp/
+.temp/
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Operating System
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Runtime
+# =========================
+*.pid
+*.seed
+*.pid.lock
