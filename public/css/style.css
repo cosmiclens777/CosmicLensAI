@@ -616,6 +616,80 @@ nav ul{
 
 }
 
+   /* ==========================
+Animations
+========================== */
+
+.hidden{
+
+opacity:0;
+
+transform:translateY(50px);
+
+transition:1s;
+
+}
+
+.show{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+.cursor-glow{
+
+position:fixed;
+
+width:350px;
+
+height:350px;
+
+background:radial-gradient(circle,
+rgba(99,102,241,.18),
+transparent 70%);
+
+pointer-events:none;
+
+border-radius:50%;
+
+transform:translate(-50%,-50%);
+
+filter:blur(40px);
+
+z-index:-1;
+
+}
+
+.copy-btn{
+
+padding:10px 18px;
+
+background:#6366f1;
+
+border:none;
+
+color:white;
+
+cursor:pointer;
+
+margin:20px;
+
+border-radius:8px;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.copy-btn:hover{
+
+transform:scale(1.05);
+
+}
+
 }
 
 @media(max-width:600px){
