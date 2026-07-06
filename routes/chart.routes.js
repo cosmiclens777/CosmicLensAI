@@ -8,7 +8,6 @@ import { chartSchema } from "../validators/chart.validator.js";
 import { apiKeyMiddleware } from "../middleware/apiKey.middleware.js";
 
 const router = Router();
-
 /**
  * FULL ASTRO API ROUTE
  * - API Key protected
