@@ -1,198 +1,126 @@
-/**
- * Kundali AI - Frontend Integration Engine
- * Mapped strictly to production base endpoint: https://kundali-ai.sundardumre.com
- * Powered by: Er. Sundar Dumre (2026)
- */
+// Documentation Database Matrix (Handles State Transitions)
+const apiRoutesData = {
+    birth: {
+        title: "Foundational Birth Chart Sync",
+        url: "https://kundali-ai.sundardumre.com.np/api/chart",
+        description: "Generates comprehensive core structural coordinates, planetary longitudinal properties, and geometric houses (D1) for corporate user validation nodes.",
+        business: "Commercial Scope: Matrimonial compatibility filtering & digital profile generation.",
+        request: {
+            type: "birth_chart",
+            date: "1999-07-30",
+            time: "10:12:00",
+            latitude: 27.7172,
+            longitude: 85.3240,
+            timezone: 5.75
+        },
+        response: {
+            status: "success",
+            system: "Swiss-Ephemeris-Direct",
+            data: {
+                ascendant: { sign: "Virgo", degree: 14.23 },
+                planets: {
+                    Sun: { house: 11, nakshatra: "Pushya", degree: 12.45 },
+                    Moon: { house: 5, nakshatra: "Shatabhisha", degree: 28.12 }
+                }
+            }
+        }
+    },
+    panchang: {
+        title: "Daily Dynamic Panchang Calculations",
+        url: "https://kundali-ai.sundardumre.com.np/api/chart",
+        description: "Computes deep computational real-time linear localized alignments covering Tithi, Nakshatra, Yoga, and Karana systems dynamically per clock thread.",
+        business: "Commercial Scope: Localized dynamic calendar micro-widgets & high-traffic astro portals.",
+        request: {
+            type: "daily_panchang",
+            date: "2026-07-06",
+            latitude: 27.7172,
+            longitude: 85.3240,
+            timezone: 5.75
+        },
+        response: {
+            status: "success",
+            engine: "C++ Native Core",
+            panchang: {
+                tithi: { name: "Krishna Saptami", end_time: "22:14:00" },
+                nakshatra: { name: "Ashwini", ruler: "Ketu" },
+                rahukaal: { start: "07:12", end: "08:54" }
+            }
+        }
+    },
+    dasha: {
+        title: "Chronological Dasha Chronology Alignment",
+        url: "https://kundali-ai.sundardumre.com.np/api/chart",
+        description: "Returns precise chronological multi-tiered matrices mapping standard Vimshottari cycles directly targeting customized retention triggers.",
+        business: "Commercial Scope: User notification triggers during heavy cyclical astrological transitions.",
+        request: {
+            type: "vimshottari_dasha",
+            date: "1985-11-20",
+            time: "04:30:00",
+            latitude: 22.5726,
+            longitude: 88.3639,
+            timezone: 5.5
+        },
+        response: {
+            status: "success",
+            current_dasha: {
+                mahadasha: "Rahu",
+                antardasha: "Jupiter",
+                pratyantardasha: "Mercury",
+                timeline_expiry: "2028-11-04"
+            }
+        }
+    },
+    ai: {
+        title: "AI Synthesis Interpretation Pipelines",
+        url: "https://kundali-ai.sundardumre.com.np/api/chart",
+        description: "Streams computed ephemeris values directly into custom LLM parameter stacks to execute zero-delay natural text summaries.",
+        business: "Commercial Scope: Scaled automated human counseling automation modules.",
+        request: {
+            type: "ai_interpretation",
+            chart_id: "998231",
+            depth: "comprehensive",
+            language: "en"
+        },
+        response: {
+            status: "success",
+            generation_mode: "LLM-Context-Pipe",
+            reading: "The planetary configuration indicates an intense concentration of mental faculties in the eleventh house, driving professional gains via analytical tech domains..."
+        }
+    }
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Structural Safeguarded Bootstrapping
-    initPlaygroundTabs();
-    initPlaygroundForm();
-    initThemeToggler();
-    initBackToTop();
-    initLiveStatsCounter();
-});
-
-/**
- * 1. Playground Navigation Tabs Component Code Logic
- */
-function initPlaygroundTabs() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+// Event Handler Initializers
+document.addEventListener("DOMContentLoaded", () => {
+    const tabButtons = document.querySelectorAll(".tab-link");
+    const routeTitle = document.getElementById("route-title");
+    const routeUrl = document.getElementById("active-route-url");
+    const routeDesc = document.getElementById("route-description");
+    const bizBadge = document.querySelector(".biz-badge strong");
+    const reqBox = document.getElementById("request-payload");
+    const resBox = document.getElementById("response-payload");
 
     tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetTab = button.getAttribute('data-tab');
+        button.addEventListener("click", (e) => {
+            // Remove previous focus state classes
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            
+            // Activate current pointer targeting
+            e.target.classList.add("active");
+            
+            const targetedKey = e.target.getAttribute("data-route");
+            const routeData = apiRoutesData[targetedKey];
 
-            // Deactivate existing states
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-
-            // Toggle selected paths
-            button.classList.add('active');
-            const targetBlock = document.getElementById(targetTab);
-            if (targetBlock) {
-                targetBlock.classList.add('active');
+            if (routeData) {
+                // Smoothly transit structural documentation content
+                routeTitle.textContent = routeData.title;
+                routeUrl.textContent = routeData.url;
+                routeDesc.textContent = routeData.description;
+                bizBadge.parentElement.innerHTML = `<strong>${routeData.business.split(":")[0]}:</strong>${routeData.business.split(":")[1]}`;
+                
+                // Stringify data formats cleanly inside viewports
+                reqBox.textContent = JSON.stringify(routeData.request, null, 2);
+                resBox.textContent = JSON.stringify(routeData.response, null, 2);
             }
         });
     });
-}
-
-/**
- * 2. API Request Payload Form Simulation Handler
- */
-function initPlaygroundForm() {
-    const playgroundForm = document.getElementById('api-playground-form');
-    if (!playgroundForm) return;
-
-    playgroundForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const btnText = document.querySelector('.btn-text');
-        const loader = document.querySelector('.loader-spinner');
-        const jsonBlock = document.querySelector('#json-res pre code');
-
-        // Render loader interface structure
-        if (btnText && loader) {
-            btnText.classList.add('hidden');
-            loader.classList.remove('hidden');
-        }
-
-        // Simulating standard Express REST processing calculations 
-        setTimeout(() => {
-            if (btnText && loader) {
-                btnText.classList.remove('hidden');
-                loader.classList.add('hidden');
-            }
-
-            // Extract values safely
-            const dateVal = document.getElementById('play-date')?.value || '1999-07-30';
-            const timeVal = document.getElementById('play-time')?.value || '10:12';
-            const latVal = document.getElementById('play-lat')?.value || '27.7172';
-            const lngVal = document.getElementById('play-lng')?.value || '85.3240';
-            const tzVal = document.getElementById('play-tz')?.value || '5.75';
-
-            // Update visible node objects properties with accurate inputs logging context
-            if (jsonBlock) {
-                jsonBlock.innerHTML = `{
-  "status": "success",
-  "endpoint_triggered": "https://kundali-ai.sundardumre.com/api/chart",
-  "method": "POST",
-  "data": {
-    "ascendant": "Libra",
-    "moon_sign": "Taurus",
-    "sun_sign": "Cancer",
-    "nakshatra": "Rohini",
-    "input_parameters_logged": {
-       "date": "${dateVal}",
-       "time": "${timeVal}",
-       "latitude": ${latVal},
-       "longitude": ${lngVal},
-       "timezone": ${tzVal}
-    },
-    "current_dasha": "Moon-Rahu-Saturn",
-    "yogas_detected": ["Gajakesari Yoga", "Budhaditya Yoga"],
-    "is_manglik": false,
-    "engine_latency": "43.2ms",
-    "caching": "REDIS_CLUSTER_HIT"
-  }
-}`;
-            }
-
-            alert('🔮 POST Request successfully compiled! Check output details on the JSON Output window tab.');
-        }, 1100);
-    });
-}
-
-/**
- * 3. LocalStorage Persistent Dark/Light Theme Switching Systems Rules
- */
-function initThemeToggler() {
-    const toggleBtn = document.getElementById('theme-toggle-btn');
-    if (!toggleBtn) return;
-
-    // Load active cached theme preference configurations profile parameters
-    const cachedPreference = localStorage.getItem('kundali-theme-state') || 'dark-theme';
-    document.body.className = cachedPreference;
-    
-    const icon = toggleBtn.querySelector('i');
-    if (icon) {
-        icon.className = cachedPreference === 'light-theme' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    toggleBtn.addEventListener('click', () => {
-        if (document.body.classList.contains('dark-theme')) {
-            document.body.className = 'light-theme';
-            if (icon) icon.className = 'fas fa-sun';
-            localStorage.setItem('kundali-theme-state', 'light-theme');
-        } else {
-            document.body.className = 'dark-theme';
-            if (icon) icon.className = 'fas fa-moon';
-            localStorage.setItem('kundali-theme-state', 'dark-theme');
-        }
-    });
-}
-
-/**
- * 4. Back To Top Floating Action Controllers Element Trigger
- */
-function initBackToTop() {
-    const bttElement = document.getElementById('back-to-top');
-    if (!bttElement) return;
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 350) {
-            bttElement.classList.add('visible');
-        } else {
-            bttElement.classList.remove('visible');
-        }
-    });
-
-    bttElement.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-/**
- * 5. High-Performance Intersection Observer Numbers Counter Engine
- */
-function initLiveStatsCounter() {
-    const counters = document.querySelectorAll('.counter');
-    const targetBounds = document.getElementById('status');
-    if (!counters.length || !targetBounds) return;
-
-    let processExecuted = false;
-
-    const runIncrementalSteps = () => {
-        counters.forEach(counter => {
-            const finalValue = +counter.getAttribute('data-target');
-            const activeValue = +counter.innerText.replace(/[^0-9.]/g, '');
-            const jumpingDelta = finalValue / 35; // Numerical distribution mapping segments
-
-            if (activeValue < finalValue) {
-                if (finalValue % 1 === 0) {
-                    counter.innerText = Math.ceil(activeValue + jumpingDelta) + (finalValue === 60 ? '+' : '');
-                } else {
-                    counter.innerText = (activeValue + jumpingDelta).toFixed(2) + '%';
-                }
-                setTimeout(runIncrementalSteps, 25);
-            } else {
-                // Formatting assignments correction guarantees upon final output states
-                if (finalValue === 99.99) counter.innerText = '99.99%';
-                else if (finalValue === 45) counter.innerText = '45ms';
-                else if (finalValue === 60) counter.innerText = '60+';
-            }
-        });
-    };
-
-    // Utilizing optimized native browser viewport layout bounds processing engine checks
-    const interactionObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !processExecuted) {
-            processExecuted = true;
-            runIncrementalSteps();
-            interactionObserver.disconnect();
-        }
-    }, { threshold: 0.15 });
-
-    interactionObserver.observe(targetBounds);
-}
+});
