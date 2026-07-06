@@ -2,7 +2,7 @@
 import { Router } from "express";
 
 import { generatePDF } from '../controllers/createNote.controller.js';
-import { generateQuiz } from '../controllers/createQuiz.Controller.js';
+import { generateQuiz } from '../controllers/createQuiz.controller.js';
 
 const router = Router();
 
