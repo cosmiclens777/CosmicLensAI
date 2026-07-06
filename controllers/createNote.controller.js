@@ -1,6 +1,5 @@
 // import { OpenAI } from 'openai';
 import { GoogleGenAI } from '@google/genai';
-
 export const generatePDF = async(req, res) => {
     const { topic, prompt } = req.body;
 
