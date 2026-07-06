@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,127 +10,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body class="dark-theme">
 
     <div class="bg-gradient"></div>
     <div class="stars"></div>
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
 
     <div class="top-status-bar">
-        <span><i class="fas fa-circle-check text-success"></i> All Systems Operational (Latency: 42ms)</span>
-        <a href="#status" class="status-link">View Detailed Metrics <i class="fas fa-arrow-right"></i></a>
+        <span><i class="fas fa-circle-check text-success"></i> Gateway Status: Online (kundali-ai.sundardumre.com)</span>
+        <a href="#endpoints" class="status-link">View Route Maps <i class="fas fa-arrow-right"></i></a>
     </div>
 
     <nav>
-        <div class="logo">
-            <span class="logo-icon">🔮</span> Cosmic Lens AI <small class="dev-tag">By Er. Sundar Dumre</small>
-        </div>
+        <div class="logo">🔮 Cosmic Lens AI <small class="dev-tag">By Er. Sundar Dumre</small></div>
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#endpoints">Endpoints</a></li>
             <li><a href="#playground">Playground</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#docs">Docs</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
         </ul>
         <div class="nav-actions">
-            <button id="theme-toggle-btn" class="theme-btn" aria-label="Toggle Theme">
-                <i class="fas fa-moon"></i>
-            </button>
+            <button id="theme-toggle-btn" class="theme-btn" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
             <a href="/dashboard/login" class="login-link">Log In</a>
             <a href="/dashboard/signup" class="nav-btn">Get API Key</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-container">
-            <p class="madeby">Made with ❤️ by <strong>Er. Sundar Dumre</strong></p>
-            <span class="badge"><i class="fas fa-bolt text-warning"></i> Powered by Swiss Ephemeris v2.10</span>
-            
-            <h1>Build Powerful <span>Vedic Astrology</span> Applications.</h1>
-            <p class="subtitle">
-                A enterprise-grade, blazing-fast REST API for Birth Charts, Divisional Charts (D1–D60), 
-                Panchang, Advanced Yogas, Vimshottari Dashas, and AI-Driven Interpretations.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#playground" class="primary-btn"><i class="fas fa-play"></i> Try Playground</a>
-                <a href="#docs" class="secondary-btn"><i class="fas fa-book"></i> Read Documentation</a>
-                <a href="https://github.com" target="_blank" class="github-btn"><i class="fab fa-github"></i> View GitHub</a>
-            </div>
+        <p class="madeby">Made with ❤️ by <strong>Er. Sundar Dumre</strong></p>
+        <span class="badge"><i class="fas fa-bolt text-warning"></i> Enterprise Vedic Engine v2.10</span>
+        <h1>Build Powerful <span>Vedic Astrology</span> Applications.</h1>
+        <p class="subtitle">A enterprise-grade, blazing-fast REST API for Birth Charts, Planetary Positions, D1–D60, Panchang, and Advanced AI Interpretation.</p>
+        <div class="hero-buttons">
+            <a href="#playground" class="primary-btn"><i class="fas fa-play"></i> Live Playground</a>
+            <a href="/dashboard/signup" class="secondary-btn"><i class="fas fa-key"></i> Provision Token</a>
         </div>
     </section>
 
     <section class="stats" id="status">
         <div class="stat-card">
-            <h2 class="counter" data-target="99.99">99.99%</h2>
-            <p><i class="fas fa-server"></i> API Uptime</p>
+            <h2 class="counter" data-target="99.99">0%</h2>
+            <p><i class="fas fa-server"></i> Platform Uptime</p>
         </div>
         <div class="stat-card">
-            <h2 class="counter" data-target="45">45ms</h2>
-            <p><i class="fas fa-tachometer-alt"></i> Avg Response Time</p>
+            <h2 class="counter" data-target="45">0ms</h2>
+            <p><i class="fas fa-tachometer-alt"></i> Avg Latency Overheads</p>
         </div>
         <div class="stat-card">
-            <h2 class="counter" data-target="60">60+</h2>
-            <p><i class="fas fa-cubes"></i> Astrology Engines</p>
-        </div>
-        <div class="stat-card">
-            <h2 class="counter" data-target="10">10M+</h2>
-            <p><i class="fas fa-network-wired"></i> Monthly Requests</p>
+            <h2 class="counter" data-target="60">0+</h2>
+            <p><i class="fas fa-cubes"></i> Engine Parameters</p>
         </div>
     </section>
 
     <section id="playground" class="playground-section">
         <div class="section-header">
-            <h2>Interactive API Playground</h2>
-            <p>Test real-time calculation outputs directly from your browser. No authentication required for testing.</p>
+            <h2>Interactive Multi-Language Playground</h2>
+            <p>Execute client requests against our calculation layers. Switch between JSON responses or ready-made snippets.</p>
         </div>
 
         <div class="playground-grid">
             <div class="playground-form-container">
-                <h3><i class="fas fa-sliders-h"></i> Input Parameters</h3>
+                <h3><i class="fas fa-sliders-h"></i> Request Payload Body</h3>
                 <form id="api-playground-form">
                     <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" value="Rahul Sharma" placeholder="Enter name">
+                        <label>Birth Date (date)</label>
+                        <input type="date" id="play-date" value="1999-07-30">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Birth Date</label>
-                            <input type="date" id="play-date" value="1999-07-30">
-                        </div>
-                        <div class="form-group">
-                            <label>Birth Time</label>
+                    <div class="form-row" style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Birth Time (time)</label>
                             <input type="time" id="play-time" value="10:12">
                         </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Timezone Offset (timezone)</label>
+                            <input type="number" step="0.01" id="play-tz" value="5.75">
+                        </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Latitude</label>
+                    <div class="form-row" style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Latitude (latitude)</label>
                             <input type="number" step="0.0001" id="play-lat" value="27.7172">
                         </div>
-                        <div class="form-group">
-                            <label>Longitude</label>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Longitude (longitude)</label>
                             <input type="number" step="0.0001" id="play-lng" value="85.3240">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Timezone (GMT Offset)</label>
-                        <input type="number" step="0.01" id="play-tz" value="5.75">
-                    </div>
                     <button type="submit" class="execute-btn">
-                        <span class="btn-text">Generate Cosmic Data</span>
-                        <div class="loader-spinner hidden">🔮 Calculating...</div>
+                        <span class="btn-text"><i class="fas fa-bolt"></i> Send POST Request</span>
+                        <div class="loader-spinner hidden">🔮 Computing...</div>
                     </button>
                 </form>
             </div>
 
             <div class="playground-output-container">
                 <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="json-res">JSON Response</button>
-                    <button class="tab-btn" data-tab="node-code">Node.js</button>
+                    <button class="tab-btn active" data-tab="json-res">JSON Output</button>
+                    <button class="tab-btn" data-tab="node-code">Node.js (Axios)</button>
                     <button class="tab-btn" data-tab="python-code">Python</button>
                     <span class="status-badge-200">200 OK</span>
                 </div>
@@ -139,13 +113,14 @@
                 <div class="tab-content active" id="json-res">
 <pre><code class="language-json">{
   "status": "success",
+  "endpoint": "https://kundali-ai.sundardumre.com/api/chart",
+  "method": "POST",
   "data": {
     "ascendant": "Libra",
     "moon_sign": "Taurus",
     "sun_sign": "Cancer",
     "nakshatra": "Rohini",
-    "current_dasha": "Moon-Rah-Sat",
-    "yogas_detected": ["Gajakesari Yoga", "Budhaditya Yoga"],
+    "yogas": ["Gajakesari", "Budhaditya"],
     "is_manglik": false
   }
 }</code></pre>
@@ -154,319 +129,129 @@
                 <div class="tab-content" id="node-code">
 <pre><code class="language-javascript">const axios = require('axios');
 
-const config = {
-  method: 'post',
-  url: 'https://api.kundaliai.com/v1/chart',
-  headers: { 'Authorization': 'Bearer YOUR_API_KEY' },
-  data: { date: "1999-07-30", time: "10:12", latitude: 27.7172, longitude: 85.3240 }
-};
-
-axios(config).then(res => console.log(res.data));</code></pre>
+axios.post('https://kundali-ai.sundardumre.com/api/chart', {
+  date: "1999-07-30",
+  time: "10:12",
+  latitude: 27.7172,
+  longitude: 85.3240,
+  timezone: 5.75
+}, {
+  headers: { 'x-api-key': 'YOUR_API_KEY' }
+}).then(res => console.log(res.data));</code></pre>
                 </div>
 
                 <div class="tab-content" id="python-code">
 <pre><code class="language-python">import requests
 
-url = "https://api.kundaliai.com/v1/chart"
-headers = {"Authorization": "Bearer YOUR_API_KEY"}
-payload = {"date": "1999-07-30", "time": "10:12", "latitude": 27.7172, "longitude": 85.3240}
+url = "https://kundali-ai.sundardumre.com/api/chart"
+payload = {
+    "date": "1999-07-30", "time": "10:12",
+    "latitude": 27.7172, "longitude": 85.3240, "timezone": 5.75
+}
+headers = {"x-api-key": " YOUR_API_KEY"}
 
-response = requests.post(url, json=payload, headers=headers)
-print(response.json())</code></pre>
+res = requests.post(url, json=payload, headers=headers)
+print(res.json())</code></pre>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="dashboard-preview-section">
-        <div class="section-header">
-            <h2>Powerful Developer Analytics</h2>
-            <p>Monitor metrics, scale usage limits, manage multiple production API keys, and set automated custom webhooks.</p>
-        </div>
-        <div class="dashboard-mockup">
-            <div class="mockup-sidebar">
-                <div class="sidebar-item active"><i class="fas fa-chart-line"></i> Analytics</div>
-                <div class="sidebar-item"><i class="fas fa-key"></i> API Keys</div>
-                <div class="sidebar-item"><i class="fas fa-credit-card"></i> Billing</div>
-                <div class="sidebar-item"><i class="fas fa-cog"></i> Settings</div>
-            </div>
-            <div class="mockup-content">
-                <div class="mockup-widgets">
-                    <div class="widget"><h4>API Calls (Today)</h4><h2>42,432 / <small>50k</small></h2></div>
-                    <div class="widget"><h4>Avg Latency</h4><h2>43.1 ms</h2></div>
-                    <div class="widget"><h4>Error Rate</h4><h2>0.01%</h2></div>
-                </div>
-                <div class="mockup-chart-area">
-                    <div class="chart-label">Real-time Request Pattern (Requests/sec)</div>
-                    <div class="mockup-graph">
-                        <div class="bar" style="height:40%"></div>
-                        <div class="bar" style="height:65%"></div>
-                        <div class="bar" style="height:50%"></div>
-                        <div class="bar" style="height:85%"></div>
-                        <div class="bar" style="height:95%"></div>
-                        <div class="bar" style="height:70%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="section-header">
-            <h2>Everything you need.</h2>
-            <p>16+ Production-Ready endpoints built natively in high-performance C++ wrapped over robust Node.js clusters.</p>
-        </div>
-        <div class="feature-grid">
-            <div class="feature-card">💎 <h3>Birth Chart (Lagna)</h3><p>Generate precise mathematical ascendant and house models.</p></div>
-            <div class="feature-card">🌀 <h3>D1–D60 Divisional</h3><p>Calculate Shodasvarga charts including Navamsha, Dashamsha, etc.</p></div>
-            <div class="feature-card">🛰️ <h3>High-Precision Planets</h3><p>Sub-arcsecond calculations for all traditional planets and Rahu/Ketu.</p></div>
-            <div class="feature-card">⌛ <h3>Vimshottari Dasha</h3><p>Recursive calculations up to Prana and Deha dasha levels.</p></div>
-            <div class="feature-card">⚡ <h3>Yoga Detection Engine</h3><p>Scans over 300+ planetary combinations including Raj, Dhan, and GajaYogas.</p></div>
-            <div class="feature-card">📅 <h3>Panchang Module</h3><p>Accurate real-time Tithi, Yoga, Karana, Vara, and Nakshatra metrics.</p></div>
-            <div class="feature-card">🤖 <h3>AI Interpretation</h3><p>Generate highly descriptive human-like contextual engine readings.</p></div>
-            <div class="feature-card">🔗 <h3>Matchmaking (Ashtakoot)</h3><p>Deep matching algorithm evaluating mental and physical compatibilities.</p></div>
-            <div class="feature-card">🔥 <h3>Dosha Analysis</h3><p>Advanced real-time calculations for Manglik and Kaal Sarp Dosha.</p></div>
-            <div class="feature-card">🪐 <h3>Sade Sati Status</h3><p>Track complete Saturn transition timelines for any birth profile.</p></div>
-            <div class="feature-card">🔢 <h3>Cosmic Numerology</h3><p>Generate life path numbers, destiny parameters, and radical metrics.</p></div>
-            <div class="feature-card">📿 <h3>Remedial Suggestions</h3><p>AI engine outputs for Gemstones, Rudraksha, and Vedic rituals.</p></div>
-            <div class="feature-card">⏱️ <h3>Choghadiya & Muhurat</h3><p>Find auspicious micro-timings for business operations or weddings.</p></div>
-            <div class="feature-card">📊 <h3>Ashtakavarga Matrix</h3><p>Get complete points score calculations including Samudaya maps.</p></div>
-            <div class="feature-card">🗺️ <h3>KP Astrology Systems</h3><p>High-fidelity Krishnamurti Paddhati sub-lord systems and planet coordinates.</p></div>
-            <div class="feature-card">🚀 <h3>Lal Kitab Calculations</h3><p>Calculate unique planetary positions based on specific 12-house patterns.</p></div>
         </div>
     </section>
 
     <section id="endpoints" class="endpoints-section">
         <div class="section-header">
-            <h2>REST API Endpoints Structure</h2>
-            <p>Clean, standardized, version-controlled endpoints formatted in pure application/json paths.</p>
+            <h2>Production Route Mapping</h2>
+            <p>All functional properties must be triggered via strict security-validated <code>POST</code> structures.</p>
         </div>
         <div class="endpoints-table-wrapper">
             <table class="endpoints-table">
                 <thead>
                     <tr>
                         <th>Method</th>
-                        <th>Endpoint Path</th>
-                        <th>Description</th>
+                        <th>Target Endpoint Route</th>
+                        <th>Description Context</th>
                         <th>Caching</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/chart/birth</code></td><td>Generates foundational core Lagna charts.</td><td>Redis Cache <span class="badge-active">Active</span></td></tr>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/chart/divisional</code></td><td>Computes D2 through D60 mathematical sub-charts.</td><td>Redis Cache <span class="badge-active">Active</span></td></tr>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/dasha/vimshottari</code></td><td>Retrieves detailed multi-level dasha periods.</td><td>Redis Cache <span class="badge-active">Active</span></td></tr>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/panchang/daily</code></td><td>Calculates standard five elements of a solar day.</td><td>Expires 24h</td></tr>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/match/ashtakoot</code></td><td>Calculates matchmaking compatibility scores.</td><td>Redis Cache <span class="badge-active">Active</span></td></tr>
-                    <tr><td><span class="meth post">POST</span></td><td><code>/api/v1/ai/interpret</code></td><td>Feeds chart state to generative transformer engine.</td><td>Dynamic</td></tr>
+                    <tr>
+                        <td><span class="meth method-post">POST</span></td>
+                        <td><code>https://kundali-ai.sundardumre.com/api/chart</code></td>
+                        <td>Generates Lagna, planetary positions, and divisional matrix objects.</td>
+                        <td><span class="cache-hit">Redis Hit</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="meth method-post">POST</span></td>
+                        <td><code>https://kundali-ai.sundardumre.com/api/dasha</code></td>
+                        <td>Computes multi-level recursive Vimshottari dasha timelines.</td>
+                        <td><span class="cache-hit">Redis Hit</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="meth method-post">POST</span></td>
+                        <td><code>https://kundali-ai.sundardumre.com/api/panchang</code></td>
+                        <td>Calculates Tithi, Vara, Nakshatra, Yoga, and Karana structures.</td>
+                        <td><span>Expires 24h</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="meth method-post">POST</span></td>
+                        <td><code>https://kundali-ai.sundardumre.com/api/ai-interpret</code></td>
+                        <td>Feeds core calculations to generative fine-tuned LLM explanation layers.</td>
+                        <td><span style="color:#f59e0b;">Dynamic</span></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <section class="auth-example-section">
-        <div class="auth-card-banner">
-            <div class="auth-desc">
-                <h3><i class="fas fa-lock text-warning"></i> Production Security Standard</h3>
-                <p>Pass your client auth keys via standard bearer headers inside request objects.</p>
-            </div>
-            <div class="auth-snippet">
-                <code>Authorization: Bearer kundali_live_sk_948f921...</code>
-            </div>
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>Everything you need.</h2>
+            <p>16+ Astrological endpoints wrapped natively in premium compilation configurations.</p>
         </div>
-    </section>
-
-    <section class="tech-stack">
-        <h3>Engine Integration Ecosystem</h3>
-        <div class="tech-logos">
-            <span><i class="fab fa-node-js"></i> Node.js</span>
-            <span><i class="fas fa-rocket"></i> Express</span>
-            <span><i class="fas fa-microchip"></i> C++ Engine</span>
-            <span><i class="fas fa-database"></i> Redis Cache</span>
-            <span><i class="fab fa-docker"></i> Dockerized</span>
-            <span><i class="fab fa-aws"></i> AWS Cloud</span>
+        <div class="feature-grid">
+            <div class="feature-card">🌍 <h3>Birth Chart</h3><p>Generate precise mathematical structural Lagna alignments.</p></div>
+            <div class="feature-card">🌀 <h3>D1–D60 Subcharts</h3><p>Complete divisional alignments including Navamsha components.</p></div>
+            <div class="feature-card">🛰️ <h3>Planet Maps</h3><p>Sub-arcsecond accuracy metrics derived from Swiss ephemeris structures.</p></div>
+            <div class="feature-card">⌛ <h3>Vimshottari Dasha</h3><p>Complete chronological timeline breakdowns down to Prana states.</p></div>
+            <div class="feature-card">⚡ <h3>Yoga Detection</h3><p>Scans over 300+ planetary pairings instantly (Raj, GajaYogas).</p></div>
+            <div class="feature-card">📅 <h3>Panchang Module</h3><p>Real-time analytical daily variables with geographic adjustments.</p></div>
         </div>
     </section>
 
     <section id="pricing" class="pricing-section">
         <div class="section-header">
-            <h2>Flexible, Developer-Friendly Pricing</h2>
-            <p>Start completely free. Scale effortlessly as your system requirements grow.</p>
+            <h2>Developer Pricing Models</h2>
         </div>
         <div class="pricing-grid">
             <div class="price-card">
-                <h3>Starter Plan</h3>
-                <div class="price-amount"><h1>$0</h1><span>/ month</span></div>
-                <p class="plan-desc">Perfect for evaluation and side-projects.</p>
-                <hr>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> 100 API Requests / Day</li>
-                    <li><i class="fas fa-check"></i> Basic Charts & Panchang</li>
-                    <li><i class="fas fa-check"></i> Core Ephemeris Precision</li>
-                    <li class="disabled"><i class="fas fa-times"></i> AI-Powered Interpretations</li>
-                    <li class="disabled"><i class="fas fa-times"></i> Priority Slack Support</li>
+                <h3>Sandbox Plan</h3>
+                <div class="price-amount"><h1>$0</h1><span>/ mo</span></div>
+                <hr class="card-divider">
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check text-success"></i> 100 Free Requests / Day</li>
+                    <li><i class="fas fa-check text-success"></i> Comprehensive Core Ephemeris</li>
                 </ul>
-                <button class="plan-btn">Start Free Tier</button>
+                <a href="/dashboard/signup" class="plan-btn">Provision Sandbox Key</a>
             </div>
-
             <div class="price-card popular">
-                <span class="popular-tag">MOST POPULAR</span>
-                <h3>Pro Developer</h3>
-                <div class="price-amount"><h1>$19</h1><span>/ month</span></div>
-                <p class="plan-desc">For commercial production app builds.</p>
-                <hr>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> 50,000 Requests / Month</li>
-                    <li><i class="fas fa-check"></i> Full Access (D1-D60, Dashas, Yogas)</li>
-                    <li><i class="fas fa-check"></i> Redis High-Speed Layer</li>
-                    <li><i class="fas fa-check"></i> Standard Webhook Alerts</li>
-                    <li class="disabled"><i class="fas fa-times"></i> Premium AI Generation Layers</li>
+                <span class="popular-tag">RECOMMENDED</span>
+                <h3>Pro Engineer</h3>
+                <div class="price-amount"><h1>$19</h1><span>/ mo</span></div>
+                <hr class="card-divider">
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check text-success"></i> 50,000 Volume Loads / Month</li>
+                    <li><i class="fas fa-check text-success"></i> Premium Redis Cluster Speed</li>
                 </ul>
-                <button class="plan-btn primary">Upgrade to Pro</button>
+                <a href="/dashboard/signup" class="plan-btn primary">Acquire Production Token</a>
             </div>
-
-            <div class="price-card">
-                <h3>Business Scale</h3>
-                <div class="price-amount"><h1>$99</h1><span>/ month</span></div>
-                <p class="plan-desc">Optimized for high traffic commercial architectures.</p>
-                <hr>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Unlimited Requests (Fair Use)</li>
-                    <li><i class="fas fa-check"></i> Dedicated Micro-Cluster Pipeline</li>
-                    <li><i class="fas fa-check"></i> Full AI Interpretations Enabled</li>
-                    <li><i class="fas fa-check"></i> Custom Domain Whitelists</li>
-                    <li><i class="fas fa-check"></i> 24/7 Priority Phone Support</li>
-                </ul>
-                <button class="plan-btn">Deploy Enterprise</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="docs" class="docs-section">
-        <div class="section-header">
-            <h2>Developer Documentation</h2>
-            <p>Comprehensive step-by-step API integration guides for seamless architecture deployment.</p>
-        </div>
-        <div class="docs-grid">
-            <div class="doc-card"><h4><i class="fas fa-sign-in-alt"></i> Authentication</h4><p>How to construct headers and rotate global developer secret hashes.</p></div>
-            <div class="doc-card"><h4><i class="fas fa-key"></i> Key Scopes</h4><p>Define precise read/write resource permissions across client instances.</p></div>
-            <div class="doc-card"><h4><i class="fas fa-map-marked-alt"></i> Coordinates Parsing</h4><p>Integrated lookup rules dealing with complex global daylight saving offsets (DST).</p></div>
-            <div class="doc-card"><h4><i class="fas fa-exclamation-triangle"></i> Error Matrix</h4><p>Comprehensive breakdown list tracking all core native C++ platform errors.</p></div>
-            <div class="doc-card"><h4><i class="fas fa-sync-alt"></i> Webhook Objects</h4><p>Set asynchronous payloads triggered during transit calculations.</p></div>
-            <div class="doc-card"><h4><i class="fas fa-code-branch"></i> SDK Libraries</h4><p>Community wrappers native to Node.js, Python frameworks, and PHP engines.</p></div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="roadmap-section">
-        <div class="section-header">
-            <h2>Product Roadmap</h2>
-            <p>Track scheduled platform features planned across our microservices pipeline.</p>
-        </div>
-        <div class="roadmap-timeline">
-            <div class="timeline-item completed">
-                <div class="timeline-dot"><i class="fas fa-check-circle"></i></div>
-                <div class="timeline-content"><h3>Q1 2026 — Core Engine Launch</h3><p>Successfully integrated native C++ Swiss Ephemeris matrix layers with automated sub-millisecond route parsing.</p></div>
-            </div>
-            <div class="timeline-item active">
-                <div class="timeline-dot"><i class="fas fa-spinner fa-spin"></i></div>
-                <div class="timeline-content"><h3>Q2 2026 — LLM Astrology Core</h3><p>Integrating tailored generative LLM context transformers into `/api/v1/ai/interpret` engine routing models.</p></div>
-            </div>
-            <div class="timeline-item future">
-                <div class="timeline-dot"><i class="far fa-circle"></i></div>
-                <div class="timeline-content"><h3>Q3 2026 — GraphQL Support</h3><p>Building localized custom query schemas preventing over-fetching across client-side dashboards.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <div class="section-header">
-            <h2>Trusted by Developers Globally</h2>
-            <p>See what core engineering leads are building using Kundali AI frameworks.</p>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars-rating">⭐⭐⭐⭐⭐</div>
-                <p>"The sub-50ms latency layer completely redefined how our platform builds astronomical charts. Exceptional reliability."</p>
-                <h5>Rahul Sharma</h5>
-                <small>CTO, AstroTech Solutions (India)</small>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars-rating">⭐⭐⭐⭐⭐</div>
-                <p>"Extremely precise calculations compared to legacy structures. The Node.js SDK saved us weeks of initial development."</p>
-                <h5>David L.</h5>
-                <small>Lead Architect, CosmicMap (USA)</small>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq-section">
-        <div class="section-header">
-            <h2>Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-container">
-            <details>
-                <summary>How do I provision a dedicated production API Key?</summary>
-                <p>Register an account inside our centralized console dashboard, navigate to API Keys layer, and provision test/live tokens dynamically.</p>
-            </details>
-            <details>
-                <summary>How does the core system manage global Daylight Saving (DST) structures?</summary>
-                <p>Our parameters accept explicit ISO time calculations alongside raw longitude profiles, resolving absolute geographical offsets dynamically inside our calculations.</p>
-            </details>
-            <details>
-                <summary>Is there an explicit hard throughput ceiling enforced on the Free Layer?</summary>
-                <p>Yes, requests are throttled at a ceiling of 100 operations every rolling 24-hour cycle. Upgrade paths open instant concurrent query capabilities.</p>
-            </details>
-        </div>
-    </section>
-
-    <section class="newsletter-section">
-        <div class="newsletter-card">
-            <h3>Subscribe to Developer Updates</h3>
-            <p>Get notified when patch updates, engine definitions, or novel SDK modules drop.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
-                <input type="email" placeholder="Enter your engineering email..." required>
-                <button type="submit">Subscribe</button>
-            </form>
         </div>
     </section>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-brand-col">
-                <h3>🔮 Kundali AI</h3>
-                <p>Modern microsecond REST pipelines tailored directly around predictive astrological calculations.</p>
-                <p class="credit-tag">Engineered with ❤️ by <strong>Er. Sundar Dumre</strong></p>
-            </div>
-            <div class="footer-links-col">
-                <h4>Product</h4>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing Plans</a></li>
-                    <li><a href="#playground">Live Playground</a></li>
-                </ul>
-            </div>
-            <div class="footer-links-col">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="https://github.com" target="_blank">Ecosystem Tools</a></li>
-                    <li><a href="#status">System Logs Status</a></li>
-                </ul>
-            </div>
-            <div class="footer-links-col">
-                <h4>Connect</h4>
-                <div class="social-icons">
-                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-        <hr class="footer-divider">
-        <div class="footer-bottom">
-            <small>&copy; 2026 Kundali AI Systems. All Rights Reserved.</small>
-        </div>
+        <p>&copy; 2026 Kundali AI Networks. Built with ❤️ by <strong>Er. Sundar Dumre</strong>.</p>
     </footer>
 
-    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+    <button id="back-to-top" aria-label="Return to top"><i class="fas fa-chevron-up"></i></button>
+
+    <script src="js/app.js"></script>
 </body>
 </html>

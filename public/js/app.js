@@ -1,239 +1,11 @@
-// ======================================
-// KUNDALI AI LANDING PAGE
-// app.js
-// ======================================
-
-// Current Year
-
-const year = new Date().getFullYear();
-
-const footer = document.querySelector("footer small");
-
-if (footer) {
-    footer.innerHTML = `© ${year} Kundali AI. All Rights Reserved.`;
-}
-
-
-// ======================================
-// Navbar Shadow
-// ======================================
-
-const nav = document.querySelector("nav");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 40) {
-
-        nav.style.background = "rgba(5,8,22,.92)";
-        nav.style.boxShadow = "0 10px 40px rgba(0,0,0,.45)";
-
-    } else {
-
-        nav.style.background = "rgba(12,17,33,.55)";
-        nav.style.boxShadow = "none";
-
-    }
-
-});
-
-
-// ======================================
-// Scroll Reveal Animation
-// ======================================
-
-const observer = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
-
-        }
-
-    });
-
-}, {
-
-    threshold: .15
-
-});
-
-document.querySelectorAll("section,.feature-card,.price-card,.doc-card,.stat,details")
-.forEach(el => {
-
-    el.classList.add("hidden");
-
-    observer.observe(el);
-
-});
-
-
-// ======================================
-// Counter Animation
-// ======================================
-
-const counters = document.querySelectorAll(".stat h2");
-
-counters.forEach(counter => {
-
-    const target = counter.innerText;
-
-    const number = parseFloat(target);
-
-    if (isNaN(number)) return;
-
-    let value = 0;
-
-    const increment = number / 80;
-
-    const suffix = target.replace(/[0-9.]/g, "");
-
-    const timer = setInterval(() => {
-
-        value += increment;
-
-        if (value >= number) {
-
-            value = number;
-
-            clearInterval(timer);
-
-        }
-
-        counter.innerHTML = value.toFixed(
-            number % 1 ? 2 : 0
-        ) + suffix;
-
-    }, 20);
-
-});
-
-
-// ======================================
-// Mouse Glow
-// ======================================
-
-const glow = document.createElement("div");
-
-glow.className = "cursor-glow";
-
-document.body.appendChild(glow);
-
-document.addEventListener("mousemove", e => {
-
-    glow.style.left = e.clientX + "px";
-
-    glow.style.top = e.clientY + "px";
-
-});
-
-
-// ======================================
-// Floating Cards
-// ======================================
-
-document.querySelectorAll(".feature-card").forEach((card, i) => {
-
-    card.animate([
-
-        {
-            transform: "translateY(0px)"
-        },
-
-        {
-            transform: "translateY(-10px)"
-        },
-
-        {
-            transform: "translateY(0px)"
-        }
-
-    ], {
-
-        duration: 3000 + i * 250,
-
-        iterations: Infinity
-
-    });
-
-});
-
-
-// ======================================
-// Copy API Example
-// ======================================
-
-const pre = document.querySelector("pre");
-
-if (pre) {
-
-    const btn = document.createElement("button");
-
-    btn.innerText = "📋 Copy";
-
-    btn.className = "copy-btn";
-
-    pre.parentElement.prepend(btn);
-
-    btn.onclick = () => {
-
-        navigator.clipboard.writeText(pre.innerText);
-
-        btn.innerText = "✅ Copied";
-
-        setTimeout(() => {
-
-            btn.innerText = "📋 Copy";
-
-        }, 2000);
-
-    }
-
-}
-
-
-// ======================================
-// Smooth Anchor Scroll
-// ======================================
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function(e){
-
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute("href"))
-        .scrollIntoView({
-
-            behavior:"smooth"
-
-        });
-
-    });
-
-});
-
-
-// ======================================
-// Console Message 😎
-// ======================================
-
-console.log("%c🚀 Kundali AI",
-"font-size:30px;color:#8b5cf6;font-weight:bold;");
-
-console.log("%cMade by Er. Sundar Dumre",
-"font-size:18px;color:#60a5fa;");
-
-
-
 /**
- * Kundali AI - Frontend Core Engine Architecture
- * Created by: Er. Sundar Dumre (2026)
+ * Kundali AI - Frontend Integration Engine
+ * Mapped strictly to production base endpoint: https://kundali-ai.sundardumre.com
+ * Powered by: Er. Sundar Dumre (2026)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Core Elements Initialization
+    // Structural Safeguarded Bootstrapping
     initPlaygroundTabs();
     initPlaygroundForm();
     initThemeToggler();
@@ -242,34 +14,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * 1. Interactive Playground Tab Switcher
+ * 1. Playground Navigation Tabs Component Code Logic
  */
 function initPlaygroundTabs() {
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    if (!tabButtons.length) return;
-
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const targetTab = button.getAttribute('data-tab');
-            
-            // Remove active classes
+
+            // Deactivate existing states
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Add active classes to current selection
+
+            // Toggle selected paths
             button.classList.add('active');
-            const targetElement = document.getElementById(targetTab);
-            if (targetElement) {
-                targetElement.classList.add('active');
+            const targetBlock = document.getElementById(targetTab);
+            if (targetBlock) {
+                targetBlock.classList.add('active');
             }
         });
     });
 }
 
 /**
- * 2. API Playground Form Submission & Mock Simulation
+ * 2. API Request Payload Form Simulation Handler
  */
 function initPlaygroundForm() {
     const playgroundForm = document.getElementById('api-playground-form');
@@ -277,149 +47,152 @@ function initPlaygroundForm() {
 
     playgroundForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const btnText = document.querySelector('.btn-text');
         const loader = document.querySelector('.loader-spinner');
-        
-        // Show Loading State
+        const jsonBlock = document.querySelector('#json-res pre code');
+
+        // Render loader interface structure
         if (btnText && loader) {
             btnText.classList.add('hidden');
             loader.classList.remove('hidden');
         }
 
-        // Simulating Real-time Node.js Express API Fetch Request
+        // Simulating standard Express REST processing calculations 
         setTimeout(() => {
-            // Hide Loading State
             if (btnText && loader) {
                 btnText.classList.remove('hidden');
                 loader.classList.add('hidden');
             }
-            
-            // Update the JSON Block with customized mock response based on user input
+
+            // Extract values safely
             const dateVal = document.getElementById('play-date')?.value || '1999-07-30';
-            const jsonOutputBlock = document.querySelector('#json-res pre code');
-            
-            if (jsonOutputBlock) {
-                jsonOutputBlock.innerHTML = `{
+            const timeVal = document.getElementById('play-time')?.value || '10:12';
+            const latVal = document.getElementById('play-lat')?.value || '27.7172';
+            const lngVal = document.getElementById('play-lng')?.value || '85.3240';
+            const tzVal = document.getElementById('play-tz')?.value || '5.75';
+
+            // Update visible node objects properties with accurate inputs logging context
+            if (jsonBlock) {
+                jsonBlock.innerHTML = `{
   "status": "success",
+  "endpoint_triggered": "https://kundali-ai.sundardumre.com/api/chart",
+  "method": "POST",
   "data": {
     "ascendant": "Libra",
     "moon_sign": "Taurus",
     "sun_sign": "Cancer",
     "nakshatra": "Rohini",
-    "input_date_logged": "${dateVal}",
-    "current_dasha": "Moon-Rah-Sat",
+    "input_parameters_logged": {
+       "date": "${dateVal}",
+       "time": "${timeVal}",
+       "latitude": ${latVal},
+       "longitude": ${lngVal},
+       "timezone": ${tzVal}
+    },
+    "current_dasha": "Moon-Rahu-Saturn",
     "yogas_detected": ["Gajakesari Yoga", "Budhaditya Yoga"],
     "is_manglik": false,
-    "engine_latency": "41.2ms"
+    "engine_latency": "43.2ms",
+    "caching": "REDIS_CLUSTER_HIT"
   }
 }`;
             }
 
-            alert('🔮 Cosmic Data Generated successfully! Check the JSON Response tab.');
-        }, 1200); // 1.2 Seconds simulation latency
+            alert('🔮 POST Request successfully compiled! Check output details on the JSON Output window tab.');
+        }, 1100);
     });
 }
 
 /**
- * 3. Premium Dark / Light Mode Theme Transition Toggle
+ * 3. LocalStorage Persistent Dark/Light Theme Switching Systems Rules
  */
 function initThemeToggler() {
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    if (!themeToggleBtn) return;
+    const toggleBtn = document.getElementById('theme-toggle-btn');
+    if (!toggleBtn) return;
 
-    // Check for saved user preference, otherwise default to dark-theme
-    const savedTheme = localStorage.getItem('kundali-theme') || 'dark-theme';
-    document.body.className = savedTheme;
+    // Load active cached theme preference configurations profile parameters
+    const cachedPreference = localStorage.getItem('kundali-theme-state') || 'dark-theme';
+    document.body.className = cachedPreference;
     
-    // Update icon state upon load
-    const icon = themeToggleBtn.querySelector('i');
+    const icon = toggleBtn.querySelector('i');
     if (icon) {
-        icon.className = savedTheme === 'light-theme' ? 'fas fa-sun' : 'fas fa-moon';
+        icon.className = cachedPreference === 'light-theme' ? 'fas fa-sun' : 'fas fa-moon';
     }
 
-    themeToggleBtn.addEventListener('click', () => {
-        let currentTheme = 'dark-theme';
-        
+    toggleBtn.addEventListener('click', () => {
         if (document.body.classList.contains('dark-theme')) {
-            document.body.classList.remove('dark-theme');
-            document.body.classList.add('light-theme');
-            currentTheme = 'light-theme';
+            document.body.className = 'light-theme';
             if (icon) icon.className = 'fas fa-sun';
+            localStorage.setItem('kundali-theme-state', 'light-theme');
         } else {
-            document.body.classList.remove('light-theme');
-            document.body.classList.add('dark-theme');
-            currentTheme = 'dark-theme';
+            document.body.className = 'dark-theme';
             if (icon) icon.className = 'fas fa-moon';
+            localStorage.setItem('kundali-theme-state', 'dark-theme');
         }
-        
-        // Save user state permanently in localStorage
-        localStorage.setItem('kundali-theme', currentTheme);
     });
 }
 
 /**
- * 4. Back To Top Floating Action Trigger Logic
+ * 4. Back To Top Floating Action Controllers Element Trigger
  */
 function initBackToTop() {
-    const bttButton = document.getElementById('back-to-top');
-    if (!bttButton) return;
+    const bttElement = document.getElementById('back-to-top');
+    if (!bttElement) return;
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            bttButton.classList.add('visible');
+        if (window.scrollY > 350) {
+            bttElement.classList.add('visible');
         } else {
-            bttButton.classList.remove('visible');
+            bttElement.classList.remove('visible');
         }
     });
 
-    bttButton.addEventListener('click', () => {
+    bttElement.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
 /**
- * 5. High-Performance Live Stats Counter Animation
+ * 5. High-Performance Intersection Observer Numbers Counter Engine
  */
 function initLiveStatsCounter() {
     const counters = document.querySelectorAll('.counter');
-    const statusSection = document.getElementById('status');
-    if (!counters.length || !statusSection) return;
+    const targetBounds = document.getElementById('status');
+    if (!counters.length || !targetBounds) return;
 
-    let animated = false;
+    let processExecuted = false;
 
-    const runCounters = () => {
+    const runIncrementalSteps = () => {
         counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const current = +counter.innerText.replace(/[^0-9.]/g, '');
-            const increment = target / 40; // Split smooth steps
+            const finalValue = +counter.getAttribute('data-target');
+            const activeValue = +counter.innerText.replace(/[^0-9.]/g, '');
+            const jumpingDelta = finalValue / 35; // Numerical distribution mapping segments
 
-            if (current < target) {
-                if (target % 1 === 0) {
-                    counter.innerText = Math.ceil(current + increment) + 
-                        (target >= 60 && counter.innerText.includes('+') || target === 60 ? '+' : '');
+            if (activeValue < finalValue) {
+                if (finalValue % 1 === 0) {
+                    counter.innerText = Math.ceil(activeValue + jumpingDelta) + (finalValue === 60 ? '+' : '');
                 } else {
-                    counter.innerText = (current + increment).toFixed(2) + '%';
+                    counter.innerText = (activeValue + jumpingDelta).toFixed(2) + '%';
                 }
-                setTimeout(runCounters, 25);
+                setTimeout(runIncrementalSteps, 25);
             } else {
-                // Ensure the final formatting is precise
-                if (target === 99.99) counter.innerText = '99.99%';
-                else if (target === 45) counter.innerText = '45ms';
-                else if (target === 60) counter.innerText = '60+';
-                else if (target === 10) counter.innerText = '10M+';
+                // Formatting assignments correction guarantees upon final output states
+                if (finalValue === 99.99) counter.innerText = '99.99%';
+                else if (finalValue === 45) counter.innerText = '45ms';
+                else if (finalValue === 60) counter.innerText = '60+';
             }
         });
     };
 
-    // Modern Intersection Observer API for performance optimizations
-    const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !animated) {
-            animated = true;
-            runCounters();
-            observer.disconnect(); // Stop observing once triggered
+    // Utilizing optimized native browser viewport layout bounds processing engine checks
+    const interactionObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !processExecuted) {
+            processExecuted = true;
+            runIncrementalSteps();
+            interactionObserver.disconnect();
         }
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
-    observer.observe(statusSection);
+    interactionObserver.observe(targetBounds);
 }
