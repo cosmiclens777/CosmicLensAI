@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Authentication Node | Kundali AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            z-index: 10;
+            position: relative;
+        }
+        .auth-card {
+            background: rgba(20, 16, 35, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+        .auth-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .auth-card p {
+            color: #a3a3c2;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #fff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #8a5cf6;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.2);
+        }
+        .auth-action-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #8a5cf6 0%, #ec4899 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .auth-action-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6b6b81;
+            margin: 25px 0;
+            font-size: 0.85rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+        
+        .social-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .social-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .toggle-mode {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #a3a3c2;
+        }
+        .toggle-mode a {
+            color: #ec4899;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .toggle-mode a:hover { text-decoration: underline; }
+        .error-message {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+    <div class="stars"></div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2 id="auth-title">Developer Portal</h2>
+            <p id="auth-subtitle">Initialize your core credentials to access token layers.</p>
+            
+            <div id="error-box" class="error-message"></div>
+
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div class="form-group">
+                    <label>Workspace Email</label>
+                    <input type="email" id="auth-email" placeholder="name@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Secure Password</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="main-submit-btn" class="auth-action-btn">Sign In Node</button>
+            </form>
+
+            <div class="divider">OR CHANNELS</div>
+
+            <div class="social-group">
+                <button onclick="loginWithSocial('google')" class="social-btn">
+                    <span>🌐</span> Google
+                </button>
+                <button onclick="loginWithSocial('facebook')" class="social-btn">
+                    <span>👤</span> Facebook
+                </button>
+            </div>
+
+            <div class="toggle-mode">
+                <span id="toggle-text">New to Kundali AI system?</span>
+                <a href="#" id="toggle-link" onclick="toggleAuthMode(event)">Create Workspace Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Copy config directly matching your master app.js file 
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const auth = firebase.auth();
+
+        let isLoginMode = true;
+
+        // Disposable/Temp Mail Blacklist Rule Engine
+        const blacklistedDomains = [
+            'yopmail.com', 'mailinator.com', '10minutemail.com', 
+            'tempmail.com', 'sharklasers.com', 'guerrillamail.com'
+        ];
+
+        function showError(message) {
+            const errorBox = document.getElementById("error-box");
+            errorBox.textContent = message;
+            errorBox.style.display = "block";
+        }
+
+        function toggleAuthMode(e) {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            
+            const title = document.getElementById("auth-title");
+            const subtitle = document.getElementById("auth-subtitle");
+            const btn = document.getElementById("main-submit-btn");
+            const toggleText = document.getElementById("toggle-text");
+            const toggleLink = document.getElementById("toggle-link");
+            document.getElementById("error-box").style.display = "none";
+
+            if (isLoginMode) {
+                title.textContent = "Developer Portal";
+                subtitle.textContent = "Initialize your core credentials to access token layers.";
+                btn.textContent = "Sign In Node";
+                toggleText.textContent = "New to Kundali AI system?";
+                toggleLink.textContent = "Create Workspace Account";
+            } else {
+                title.textContent = "Register Workspace";
+                subtitle.textContent = "Spin up a high-performance memory workspace allocation node.";
+                btn.textContent = "Provision Account";
+                toggleText.textContent = "Already have parameters synchronized?";
+                toggleLink.textContent = "Sign In Instead";
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById("auth-email").value.trim();
+            const password = document.getElementById("auth-password").value;
+            const errorBox = document.getElementById("error-box");
+            errorBox.style.display = "none";
+
+            if (isLoginMode) {
+                // Flow: Sign In Existing Node
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => window.location.href = "index.html")
+                    .catch(err => showError(`❌ Authentication Failure: ${err.message}`));
+            } else {
+                // Flow: Register Node + Enforce Temp-Mail Shield
+                const emailDomain = email.split('@')[1].toLowerCase();
+                if (blacklistedDomains.includes(emailDomain)) {
+                    showError("🔒 Domain Breach: Disposable temporary email endpoints are rejected by structural safety policies.");
+                    return;
+                }
+
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(() => window.location.href = "index.html")
+                    .catch(err => showError(`❌ Provisioning Fault: ${err.message}`));
+            }
+        }
+
+        // OAuth Federated Channel Pipelines
+        function loginWithSocial(providerName) {
+            let provider;
+            if (providerName === 'google') {
+                provider = new firebase.auth.GoogleAuthProvider();
+            } else if (providerName === 'facebook') {
+                provider = new firebase.auth.FacebookAuthProvider();
+            }
+
+            auth.signInWithPopup(provider)
+                .then(() => window.location.href = "index.html")
+                .catch(err => showError(`❌ Federated Identity Error: ${err.message}`));
+        }
+    </script>
+</body>
+</html>
