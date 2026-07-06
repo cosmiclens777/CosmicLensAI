@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -27,7 +30,10 @@
             <li><a href="#docs">Documentation</a></li>
             <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a href="#docs" class="nav-btn">Get API Key</a>
+        <div class="nav-auth-group" style="display: flex; gap: 15px; align-items: center;">
+            <span id="user-profile-tag" style="color: var(--text-muted); font-size: 0.9rem;"></span>
+            <a href="login.html" id="nav-auth-btn" class="nav-btn">Get API Key</a>
+        </div>
     </nav>
 
     <section class="hero">
@@ -45,84 +51,43 @@
             <a href="#pricing" class="primary-btn pulse-glow">Deploy In Minutes</a>
             <a href="#docs" class="secondary-btn">Explore Endpoints</a>
         </div>
-        <p class="madeby">
-            Engineered with ❤️ by <strong>Er. Sundar Dumre</strong>
-        </p>
+        <p class="madeby">Engineered with ❤️ by <strong>Er. Sundar Dumre</strong></p>
     </section>
 
     <section class="stats">
-        <div class="stat-card">
-            <h2>99.99%</h2>
-            <p>Guaranteed Uptime</p>
-        </div>
-        <div class="stat-card">
-            <h2>&lt; 45ms</h2>
-            <p>Execution Latency</p>
-        </div>
-        <div class="stat-card">
-            <h2>D1–D60</h2>
-            <p>Divisional Coverage</p>
-        </div>
-        <div class="stat-card">
-            <h2>Zero</h2>
-            <p>Redis Overlay Overheads</p>
-        </div>
+        <div class="stat-card"><h2>99.99%</h2><p>Guaranteed Uptime</p></div>
+        <div class="stat-card"><h2>&lt; 45ms</h2><p>Execution Latency</p></div>
+        <div class="stat-card"><h2>D1–D60</h2><p>Divisional Coverage</p></div>
+        <div class="stat-card"><h2>Zero</h2><p>Redis Overheads</p></div>
     </section>
 
     <section id="features" class="features">
         <div class="section-header">
             <h2>Production-Ready Computational Modules</h2>
-            <p>Leverage highly accurate structural astronomical algorithms packaged into standardized business APIs.</p>
+            <p>Leverage astronomical algorithms packaged into standardized business APIs.</p>
         </div>
         <div class="feature-grid">
-            <div class="feature-card spatial-hover">
-                <div class="icon">🌍</div>
-                <h3>Lagna Charts</h3>
-                <p>Generate native ascending sign degrees and core foundational planetary configurations.</p>
-            </div>
-            <div class="feature-card spatial-hover">
-                <div class="icon">🌙</div>
-                <h3>Divisional Harmonics</h3>
-                <p>Execute precise mathematical matrix projections spanning D2 up to granular D60 charts.</p>
-            </div>
-            <div class="feature-card spatial-hover">
-                <div class="icon">🪐</div>
-                <h3>Vimshottari Dasha</h3>
-                <p>Compute 3-layered deep chronological dynamic dashas (Maha, Antar, Pratyantar matrices).</p>
-            </div>
-            <div class="feature-card spatial-hover">
-                <div class="icon">📅</div>
-                <h3>High-Fidelity Panchang</h3>
-                <p>Real-time calculation of Tithi, Nakshatra, Yoga, Karana, and auspicious localized Muhurtas.</p>
-            </div>
-            <div class="feature-card spatial-hover">
-                <div class="icon">✨</div>
-                <h3>Yoga Detection</h3>
-                <p>Identify complex planetary conjunctions, dynamic aspects, and mathematical structural yogas.</p>
-            </div>
-            <div class="feature-card spatial-hover">
-                <div class="icon">🤖</div>
-                <h3>AI Interpretations</h3>
-                <p>Contextually pipe computational charts into high-end generative models for personalized readings.</p>
-            </div>
+            <div class="feature-card spatial-hover"><div class="icon">🌍</div><h3>Lagna Charts</h3><p>Generate foundational planetary sign positions.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">🌙</div><h3>Divisional Harmonics</h3><p>Execute D2 up to granular D60 matrix charts.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">🪐</div><h3>Vimshottari Dasha</h3><p>Compute deep nested dynamic timeline dashas.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">📅</div><h3>High-Fidelity Panchang</h3><p>Real-time linear tracking of Tithi, Nakshatra, and Muhurtas.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">✨</div><h3>Yoga Detection</h3><p>Identify complex structural planetary configurations.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">🤖</div><h3>AI Interpretations</h3><p>Pipe matrix feeds directly into dynamic LLM parameter stacks.</p></div>
         </div>
     </section>
 
     <section id="docs" class="docs-section">
         <div class="section-header">
             <h2>API Specifications & Manual Integration</h2>
-            <p>Authenticate your client environments using explicit headers. Data calculated fresh on the fly directly from memory layers.</p>
         </div>
-
         <div class="docs-layout">
             <div class="docs-controls">
                 <div class="auth-box glassmorphism">
                     <h3>🔑 Authentication Protocol</h3>
-                    <p>Inject credentials manually into your outbound client requests inside the specialized API token header mapping:</p>
+                    <p>Inject credentials inside your outbound API token header mapping:</p>
                     <div class="header-tag">Header key: <code>x-api-key</code></div>
-                    <div class="header-tag">Header value: <code>your_secret_workspace_token</code></div>
+                    <div class="header-tag">Header value: <code id="client-token-display">auth_required_load_developer_token</code></div>
                 </div>
-
                 <div class="route-tabs">
                     <button class="tab-link active" data-route="birth">Core Birth Chart</button>
                     <button class="tab-link" data-route="panchang">Daily Panchang Engine</button>
@@ -130,28 +95,22 @@
                     <button class="tab-link" data-route="ai">AI Interpretation</button>
                 </div>
             </div>
-
             <div class="docs-display glassmorphism">
                 <div class="display-header">
                     <span class="method-badge post">POST</span>
                     <span class="target-route" id="active-route-url">https://kundali-ai.sundardumre.com.np/api/chart</span>
                 </div>
-                
                 <div class="doc-body-content">
                     <h4 id="route-title">Foundational Birth Chart Sync</h4>
-                    <p id="route-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px;">
-                        Generates comprehensive core structural coordinates, planetary longitudinal properties, and geometric houses ($D1$) for corporate user validation nodes.
-                    </p>
-                    <div class="biz-badge"><strong>Commercial Scope:</strong> Matrimonial compatibility filtering & digital profile generation.</div>
-                    
+                    <p id="route-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px;"></p>
+                    <div class="biz-badge" id="route-biz-scope"><strong>Commercial Scope:</strong> Profiling.</div>
                     <div class="code-wrapper">
                         <div class="code-header">JSON Payload Request Body</div>
-                        <pre><code id="request-payload">{\n  "type": "birth_chart",\n  "date": "1999-07-30",\n  "time": "10:12:00",\n  "latitude": 27.7172,\n  "longitude": 85.3240,\n  "timezone": 5.75\n}</code></pre>
+                        <pre><code id="request-payload"></code></pre>
                     </div>
-
                     <div class="code-wrapper">
-                        <div class="code-header">Response Scheme (Fresh Process)</div>
-                        <pre><code id="response-payload">{\n  "status": "success",\n  "system": "Swiss-Ephemeris-Direct",\n  "data": {\n    "ascendant": {"sign": "Virgo", "degree": 14.23},\n    "planets": {\n      "Sun": {"house": 11, "nakshatra": "Pushya"},\n      "Moon": {"house": 5, "nakshatra": "Shatabhisha"}\n    }\n  }\n}</code></pre>
+                        <div class="code-header">Response Scheme</div>
+                        <pre><code id="response-payload"></code></pre>
                     </div>
                 </div>
             </div>
@@ -167,92 +126,61 @@
                 <h3>Sandbox</h3>
                 <div class="price-value">$0<span>/forever</span></div>
                 <p>100 daily hits targeted at localized development validation setups.</p>
-                <a href="#" class="tier-btn">Access Tier</a>
+                <button onclick="openPaymentGatewayModal('Sandbox', 0)" class="tier-btn">Access Tier</button>
             </div>
             <div class="price-card glassmorphism popular-tier">
                 <div class="popular-ribbon">Highly Recommended</div>
                 <h3>Production</h3>
                 <div class="price-value">$19<span>/mo</span></div>
-                <p>50,000 highly transactional optimized requests mapped across direct servers.</p>
-                <a href="#" class="tier-btn primary-tier-btn">Launch Deployment</a>
+                <p>50,000 requests mapped directly across optimized computational servers.</p>
+                <button onclick="openPaymentGatewayModal('Production', 19)" class="tier-btn primary-tier-btn">Launch Deployment</button>
             </div>
             <div class="price-card glassmorphism">
                 <h3>Enterprise</h3>
                 <div class="price-value">$99<span>/mo</span></div>
-                <p>Unlimited high-throughput execution pathways with zero latency limits.</p>
-                <a href="#" class="tier-btn">Acquire License</a>
+                <p>Unlimited high-throughput pathways with zero computational limits.</p>
+                <button onclick="openPaymentGatewayModal('Enterprise', 99)" class="tier-btn">Acquire License</button>
             </div>
         </div>
     </section>
+
+    <div id="payment-gateway-modal" class="custom-modal-overlay" style="display: none;">
+        <div class="modal-content glassmorphism">
+            <div class="modal-header">
+                <h3>Select Cosmic Settlement Channel</h3>
+                <button onclick="closePaymentGatewayModal()" class="close-modal-btn">&times;</button>
+            </div>
+            <p class="modal-summary">Deploying <strong id="selected-tier-name">Tier</strong>: <span id="selected-tier-price">$0</span>/month</p>
+            
+            <div class="gateway-group-label">🇳🇵 Local Channels (Nepal)</div>
+            <div class="gateway-row">
+                <button onclick="processPayment('esewa')" class="payment-node-btn esewa-node">eSewa</button>
+                <button onclick="processPayment('khalti')" class="payment-node-btn khalti-node">Khalti</button>
+            </div>
+            
+            <div class="gateway-group-label">🇮🇳 Regional Paths (India)</div>
+            <div class="gateway-row">
+                <button onclick="processPayment('upi')" class="payment-node-btn upi-node">UPI Intent</button>
+                <button onclick="processPayment('paytm')" class="payment-node-btn paytm-node">Paytm</button>
+            </div>
+
+            <div class="gateway-group-label">🌐 International Infrastructure</div>
+            <div class="gateway-row">
+                <button onclick="processPayment('paypal')" class="payment-node-btn paypal-node">PayPal</button>
+                <button onclick="processPayment('googlepay')" class="payment-node-btn gpay-node">Google Pay</button>
+            </div>
+        </div>
+    </div>
+
     <section id="testimonials" class="testimonials-section">
-        <div class="section-header">
-            <h2>Trusted by Scaled Platforms</h2>
-            <p>See how enterprise platforms leverage our Swiss-Ephemeris native astrology computations to scale user engagement metrics worldwide.</p>
-        </div>
+        <div class="section-header"><h2>Trusted Platforms</h2></div>
         <div class="testimonials-grid">
-            <div class="testimonial-card glassmorphism spatial-hover">
-                <div class="quote-icon">“</div>
-                <p class="testimonial-text">
-                    Kundali AI has completely shifted our performance paradigm. Transitioning to their direct-to-memory C++ computation stream dropped our matching processing engine latency from 400ms to sub-45ms.
-                </p>
-                <div class="user-meta">
-                    <div class="avatar-fallback">MA</div>
-                    <div>
-                        <h4>Matrimony Alpha</h4>
-                        <small>DevOps Infrastructure Lead</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card glassmorphism spatial-hover">
-                <div class="quote-icon">“</div>
-                <p class="testimonial-text">
-                    Using the manual <code>x-api-key</code> system inside our serverless edge handlers was remarkably painless. Passing raw requests to <code>kundali-ai.sundardumre.com.np/api/chart</code> gives us zero caching errors and fresh transactional data every time.
-                </p>
-                <div class="user-meta">
-                    <div class="avatar-fallback">VS</div>
-                    <div>
-                        <h4>Vedic Space App</h4>
-                        <small>Chief Technology Officer</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card glassmorphism spatial-hover">
-                <div class="quote-icon">“</div>
-                <p class="testimonial-text">
-                    The dynamic multi-tiered Vimshottari Dasha calculations let us build a high-fidelity alert framework. Our premium subscription retention grew by over 22% within three months of deployment.
-                </p>
-                <div class="user-meta">
-                    <div class="avatar-fallback">DL</div>
-                    <div>
-                        <h4>Devi Labs Inc.</h4>
-                        <small>Product Lead</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <div class="section-header">
-            <h2>Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-container">
-            <details class="faq-item glassmorphism">
-                <summary>How are computations executed without a Redis layer?</summary>
-                <p>To avoid transaction overlaps, data corruption risks, or stale caching matrices across distributed clusters, our optimization parses compiled native C++ bindings directly in memory per active IO request loop.</p>
-            </details>
-            <details class="faq-item glassmorphism">
-                <summary>How can I manually map headers inside my backend platforms?</summary>
-                <p>Simply append the designated <code>x-api-key</code> string inside your outward network requests client stack options. Authentication verification resolves instantly at the perimeter.</p>
-            </details>
+            <div class="testimonial-card glassmorphism"><p>Kundali AI parsing bindings directly dropped matching engine processing from 400ms to sub-45ms.</p></div>
         </div>
     </section>
 
     <footer>
         <h2>Kundali AI Platform</h2>
-        <p>Architected for extreme throughput pipelines. Built with computational safety matrices.</p>
         <p class="credit">System Dev: <strong>Er. Sundar Dumre</strong></p>
         <small>&copy; 2026 Kundali AI Engine Corporation. All Rights Reserved.</small>
     </footer>
