@@ -9,119 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&components=buttons"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-    <style>
-        /* --- Dynamic Interactive Embed Styles For Carousels & Grid Tiers --- */
-        .hero-split-container {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Animated Live Stream Token Carousel */
-        .token-carousel-frame {
-            background: rgba(15, 12, 30, 0.6);
-            border: 1px solid rgba(138, 92, 246, 0.2);
-            border-radius: 16px;
-            padding: 24px;
-            height: 320px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-        }
-        .token-carousel-frame::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
-            background: linear-gradient(to top, rgba(15,12,30,0.9), transparent); pointer-events: none;
-        }
-        .stream-track {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            animation: streamVerticalUp 14s infinite linear;
-        }
-        .stream-node {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: #a3a3c2;
-        }
-        @keyframes streamVerticalUp {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
-
-        /* Embedded Inline Payment Grid Area */
-        .tier-payment-matrix {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .price-card.active-checkout-layout .tier-payment-matrix {
-            opacity: 1;
-            max-height: 250px;
-            margin-bottom: 10px;
-        }
-        .grid-pay-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .grid-pay-btn:hover { transform: translateY(-2px); border-color: transparent; }
-        .esewa-g:hover { background: #60bb46 !important; }
-        .khalti-g:hover { background: #5c2d91 !important; }
-        .upi-g:hover { background: #ff9933 !important; }
-        .paypal-g:hover { background: #003087 !important; }
-
-        /* Infinite Testimonial Slider System */
-        .testimonial-slider-perimeter {
-            overflow: hidden;
-            width: 100%;
-            padding: 40px 0;
-            position: relative;
-        }
-        .testimonial-carousel-track {
-            display: flex;
-            gap: 25px;
-            width: max-content;
-            animation: scrollHorizontalInfinite 32s infinite linear;
-        }
-        .testimonial-carousel-track:hover { animation-play-state: paused; }
-        .carousel-card-node {
-            width: 380px;
-            background: rgba(20, 16, 35, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        @keyframes scrollHorizontalInfinite {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-33.33%); }
-        }
-    </style>
 </head>
 <body>
 
@@ -135,32 +26,32 @@
             <span class="logo-icon">🔮</span> Cosmic Lens AI 
             <span class="developer-tag">By Er. Sundar Dumre</span>
         </div>
-        <ul>
+        <ul class="nav-links" id="nav-links-menu">
             <li><a href="#features">Features</a></li>
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#docs">Documentation</a></li>
             <li><a href="#faq">FAQ</a></li>
         </ul>
-        <div class="nav-auth-group" style="display: flex; gap: 15px; align-items: center;">
-            <span id="user-profile-tag" style="color: var(--text-muted); font-size: 0.9rem;"></span>
+        <div class="nav-auth-group">
+            <span id="user-profile-tag"></span>
             <a href="login.html" id="nav-auth-btn" class="nav-btn">Get API Key</a>
         </div>
     </nav>
 
-    <section class="hero" style="text-align: left; padding: 120px 0 60px 0;">
+    <section class="hero">
         <div class="hero-split-container">
             <div class="hero-text-align">
-                <div class="badge-container" style="justify-content: flex-start;">
+                <div class="badge-container">
                     <span class="badge animated-border">🚀 Swiss Ephemeris Native Engine v2.1</span>
                 </div>
-                <h1 style="text-align: left;">
+                <h1>
                     Build Enterprise-Grade <br>
                     <span class="gradient-text">Vedic Astrology</span> Apps.
                 </h1>
-                <p class="subtitle" style="text-align: left; margin-left: 0;">
+                <p class="subtitle">
                     A high-performance computational infrastructure generating high-precision Birth Charts, Divisional Matrices, Panchang metrics, and AI-driven predictive insights.
                 </p>
-                <div class="hero-buttons" style="justify-content: flex-start;">
+                <div class="hero-buttons">
                     <a href="#pricing" class="primary-btn pulse-glow">Deploy In Minutes</a>
                     <a href="#docs" class="secondary-btn">Explore Endpoints</a>
                 </div>
@@ -224,7 +115,7 @@
                 </div>
                 <div class="doc-body-content">
                     <h4 id="route-title">Foundational Birth Chart Sync</h4>
-                    <p id="route-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px;"></p>
+                    <p id="route-description"></p>
                     <div class="biz-badge" id="route-biz-scope"><strong>Commercial Scope:</strong> Profiling.</div>
                     <div class="code-wrapper">
                         <div class="code-header">JSON Payload Request Body</div>
@@ -239,100 +130,85 @@
         </div>
     </section>
 
-      <!-- PRICING MATRIX COVERS STRIPE, EXPLICIT GOOGLE PAY & FULL PAYPAL PLUGINS -->
     <section id="pricing">
         <div class="section-header"><h2>Predictable Pricing Built to Scale</h2></div>
         <div class="pricing-grid">
             
-            <!-- Tier 1: Sandbox -->
             <div class="price-card glassmorphism" id="tier-card-Sandbox">
                 <h3>Sandbox</h3>
                 <div class="price-value">$0<span>/forever</span></div>
                 <p>100 daily hits targeted at localized validation setups.</p>
-                <button onclick="toggleGridPayments('Sandbox', 0)" class="tier-btn">Select Dev Infrastructure</button>
+                <button onclick="handleTierSelectionToggle('Sandbox', 0)" class="tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processLocalWallet('esewa', 0, 'Sandbox')" class="grid-pay-btn esewa-g">eSewa</button>
-                    <button onclick="processLocalWallet('khalti', 0, 'Sandbox')" class="grid-pay-btn khalti-g">Khalti</button>
-                    <button onclick="processLocalWallet('upi', 0, 'Sandbox')" class="grid-pay-btn upi-g">UPI Pay</button>
-                    <button onclick="initializeStripePayment(0, 'Sandbox')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    <div class="local-wallet-row">
+                        <button onclick="executeLocalWalletChannel('esewa', 0, 'Sandbox')" class="grid-pay-btn esewa-g">eSewa</button>
+                        <button onclick="executeLocalWalletChannel('khalti', 0, 'Sandbox')" class="grid-pay-btn khalti-g">Khalti</button>
+                    </div>
+                    <button onclick="executeLocalWalletChannel('upi', 0, 'Sandbox')" class="grid-pay-btn upi-g">UPI Link</button>
+                    <button onclick="openStripeModalOverlay(0, 'Sandbox')" class="grid-pay-btn stripe-card-g">Stripe Cards</button>
                     
-                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
-                    <div id="stripe-gpay-element-Sandbox" class="gpay-inline-wrapper"></div>
+                    <div id="stripe-express-gpay-Sandbox" class="gpay-inline-wrapper"></div>
                     <div id="paypal-smart-button-Sandbox" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
 
-            <!-- Tier 2: Production -->
             <div class="price-card glassmorphism popular-tier" id="tier-card-Production">
                 <div class="popular-ribbon">Highly Recommended</div>
                 <h3>Production</h3>
                 <div class="price-value">$19<span>/mo</span></div>
-                <p>50,000 requests mapped directly across direct core servers.</p>
-                <button onclick="toggleGridPayments('Production', 19)" class="tier-btn primary-tier-btn">Select Dev Infrastructure</button>
+                <p>50,000 requests mapped directly across core global production clusters.</p>
+                <button onclick="handleTierSelectionToggle('Production', 19)" class="tier-btn primary-tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processLocalWallet('esewa', 19, 'Production')" class="grid-pay-btn esewa-g">eSewa</button>
-                    <button onclick="processLocalWallet('khalti', 19, 'Production')" class="grid-pay-btn khalti-g">Khalti</button>
-                    <button onclick="processLocalWallet('upi', 19, 'Production')" class="grid-pay-btn upi-g">UPI Pay</button>
-                    <button onclick="initializeStripePayment(19, 'Production')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    <div class="local-wallet-row">
+                        <button onclick="executeLocalWalletChannel('esewa', 19, 'Production')" class="grid-pay-btn esewa-g">eSewa</button>
+                        <button onclick="executeLocalWalletChannel('khalti', 19, 'Production')" class="grid-pay-btn khalti-g">Khalti</button>
+                    </div>
+                    <button onclick="executeLocalWalletChannel('upi', 19, 'Production')" class="grid-pay-btn upi-g">UPI Link</button>
+                    <button onclick="openStripeModalOverlay(19, 'Production')" class="grid-pay-btn stripe-card-g">Stripe Cards</button>
                     
-                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
-                    <div id="stripe-gpay-element-Production" class="gpay-inline-wrapper"></div>
+                    <div id="stripe-express-gpay-Production" class="gpay-inline-wrapper"></div>
                     <div id="paypal-smart-button-Production" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
 
-            <!-- Tier 3: Enterprise -->
             <div class="price-card glassmorphism" id="tier-card-Enterprise">
                 <h3>Enterprise</h3>
                 <div class="price-value">$99<span>/mo</span></div>
-                <p>Unlimited high-throughput pathways with zero limits.</p>
-                <button onclick="toggleGridPayments('Enterprise', 99)" class="tier-btn">Select Dev Infrastructure</button>
+                <p>Unlimited high-throughput pathways with absolute scale and zero limits.</p>
+                <button onclick="handleTierSelectionToggle('Enterprise', 99)" class="tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processLocalWallet('esewa', 99, 'Enterprise')" class="grid-pay-btn esewa-g">eSewa</button>
-                    <button onclick="processLocalWallet('khalti', 99, 'Enterprise')" class="grid-pay-btn khalti-g">Khalti</button>
-                    <button onclick="processLocalWallet('upi', 99, 'Enterprise')" class="grid-pay-btn upi-g">UPI Pay</button>
-                    <button onclick="initializeStripePayment(99, 'Enterprise')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    <div class="local-wallet-row">
+                        <button onclick="executeLocalWalletChannel('esewa', 99, 'Enterprise')" class="grid-pay-btn esewa-g">eSewa</button>
+                        <button onclick="executeLocalWalletChannel('khalti', 99, 'Enterprise')" class="grid-pay-btn khalti-g">Khalti</button>
+                    </div>
+                    <button onclick="executeLocalWalletChannel('upi', 99, 'Enterprise')" class="grid-pay-btn upi-g">UPI Link</button>
+                    <button onclick="openStripeModalOverlay(99, 'Enterprise')" class="grid-pay-btn stripe-card-g">Stripe Cards</button>
                     
-                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
-                    <div id="stripe-gpay-element-Enterprise" class="gpay-inline-wrapper"></div>
+                    <div id="stripe-express-gpay-Enterprise" class="gpay-inline-wrapper"></div>
                     <div id="paypal-smart-button-Enterprise" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ACCORDION MODAL CONTAINER FOR PLAIN CREDIT CARDS STRIPE OVERLAY -->
-        <div id="stripe-overlay-container" class="custom-modal-overlay" style="display: none;">
-            <div class="modal-content glassmorphism" style="max-width: 500px;">
+        <div id="stripe-modal-backdrop" class="custom-modal-overlay">
+            <div class="modal-content glassmorphism">
                 <div class="modal-header">
-                    <h3>Secure Stripe Element Gateway</h3>
-                    <button onclick="closeStripePortal()" class="close-modal-btn">&times;</button>
+                    <h3>Secure Card Settlement Layer</h3>
+                    <button onclick="closeStripeModalOverlay()" class="close-modal-btn">&times;</button>
                 </div>
-                <p class="modal-summary">Billing Target Amount: <strong id="stripe-amount-text">$0</strong></p>
-                <form id="stripe-payment-form" onsubmit="executeStripePaymentConfirm(event)">
-                    <div id="stripe-payment-element" style="margin-bottom: 20px;"></div>
-                    <button id="stripe-submit-btn" class="auth-action-btn" style="background: #635bff;">Process Invoice Token</button>
-                    <div id="stripe-error-message" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none;"></div>
+                <p class="modal-summary">Billing Invoice Mapping Target: <strong id="stripe-modal-amount-text">$0</strong></p>
+                <form id="stripe-payment-form">
+                    <div id="stripe-link-authentication-element" class="stripe-field-container"></div>
+                    <div id="stripe-checkout-element" class="stripe-field-container"></div>
+                    <button id="stripe-submit-processing-btn" class="auth-action-btn">Confirm Transaction Settlement</button>
+                    <div id="stripe-runtime-error-box"></div>
                 </form>
             </div>
         </div>
     </section>
-
-    <!-- Embedded Grid Inline Style Patches -->
-    <style>
-        .gpay-inline-wrapper, .paypal-inline-wrapper {
-            grid-column: span 2;
-            min-height: 40px;
-            margin-top: 6px;
-        }
-    </style>
-
-    <!-- LOAD EXTERNAL GLOBAL CORE TRANSACTION SDK CHANNELS -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-    <script src="js/app.js"></script>
 
     <section id="testimonials" class="testimonials-section">
         <div class="section-header">
@@ -342,24 +218,23 @@
         <div class="testimonial-slider-perimeter">
             <div class="testimonial-carousel-track">
                 <div class="carousel-card-node">
-                    <p style="color: #e2e2e9; line-height: 1.6;">"Kundali AI dropped our matching processing engine latency from 400ms to sub-45ms."</p>
-                    <h4 style="margin-top: 15px; color: #fff;">Matrimony Alpha</h4>
-                    <small style="color: var(--text-muted);">DevOps Infrastructure Lead</small>
+                    <p>"Kundali AI dropped our matching processing engine latency from 400ms to sub-45ms."</p>
+                    <h4>Matrimony Alpha</h4>
+                    <small>DevOps Infrastructure Lead</small>
                 </div>
                 <div class="carousel-card-node">
-                    <p style="color: #e2e2e9; line-height: 1.6;">"Passing raw requests directly inside our serverless edge handlers gives us zero caching errors."</p>
-                    <h4 style="margin-top: 15px; color: #fff;">Vedic Space App</h4>
-                    <small style="color: var(--text-muted);">Chief Technology Officer</small>
+                    <p>"Passing raw requests directly inside our serverless edge handlers gives us zero caching errors."</p>
+                    <h4>Vedic Space App</h4>
+                    <small>Chief Technology Officer</small>
                 </div>
                 <div class="carousel-card-node">
-                    <p style="color: #e2e2e9; line-height: 1.6;">"The multi-tiered Vimshottari calculations grew premium retention loop limits exponentially by over 22%."</p>
-                    <h4 style="margin-top: 15px; color: #fff;">Devi Labs Inc.</h4>
-                    <small style="color: var(--text-muted);">Product Lead</small>
+                    <p>"The multi-tiered Vimshottari calculations grew premium retention loop limits exponentially by over 22%."</p>
+                    <h4>Devi Labs Inc.</h4>
+                    <small>Product Lead</small>
                 </div>
-                
-                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Kundali AI dropped latency to sub-45ms safely."</p><h4 style="color: #fff;">Matrimony Alpha</h4></div>
-                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Zero caching bottlenecks encountered at edge barriers."</p><h4 style="color: #fff;">Vedic Space App</h4></div>
-                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Premium retention grew exponentially by over 22%."</p><h4 style="color: #fff;">Devi Labs Inc.</h4></div>
+                <div class="carousel-card-node"><p>"Kundali AI dropped latency to sub-45ms safely."</p><h4>Matrimony Alpha</h4></div>
+                <div class="carousel-card-node"><p>"Zero caching bottlenecks encountered at edge barriers."</p><h4>Vedic Space App</h4></div>
+                <div class="carousel-card-node"><p>"Premium retention grew exponentially by over 22%."</p><h4>Devi Labs Inc.</h4></div>
             </div>
         </div>
     </section>
@@ -369,27 +244,7 @@
         <p class="credit">System Dev: <strong>Er. Sundar Dumre</strong></p>
         <small>&copy; 2026 Kundali AI Engine Corporation. All Rights Reserved.</small>
     </footer>
- <script src="js/app.js"></script>
-    <script>
-        function toggleGridPayments(tierId, cost) {
-            // First clear out active configuration state classes from cards
-            document.querySelectorAll('.price-card').forEach(card => {
-                if(card.id !== `tier-card-${tierId}`) card.classList.remove('active-checkout-layout');
-            });
-            
-            // Toggle current targeting card layout container state
-            const targetCard = document.getElementById(`tier-card-${tierId}`);
-            targetCard.classList.toggle('active-checkout-layout');
-        }
 
-        function processPayment(channel, amount, tier) {
-            // Reuses master validation session logic from your app.js pipeline
-            if (typeof currentUserSession === 'undefined' && amount > 0) {
-                alert("🔒 Session Boundary Exception: Log in via developer portal to register transactions.");
-                return;
-            }
-            alert(`💸 Routing node securely to [${channel.toUpperCase()}] framework: Deploying $${amount}/mo cluster for [${tier} Plan]`);
-        }
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
