@@ -1,3 +1,161 @@
+
+JavaScript
+// =====================================================================================
+// MASTER PAYMENT INFRASTRUCTURE (STRIPE, NATIVE GOOGLE PAY, LOCAL WALLETS & ECO PAYPAL)
+// =====================================================================================
+const stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY'); 
+let stripeElements = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Inject and mount dynamic components target frames upon safe page compilation state
+    setupStandaloneGooglePayBtn(19, 'Production');
+    setupStandaloneGooglePayBtn(99, 'Enterprise');
+    
+    setupPayPalSmartButtons(19, 'Production');
+    setupPayPalSmartButtons(99, 'Enterprise');
+});
+
+// -----------------------------------------------------------
+// 1. DYNAMIC PAYPAL SMART BUTTON INTEGRATION SYSTEM
+// -----------------------------------------------------------
+function setupPayPalSmartButtons(priceValue, tierId) {
+    const targetElementId = `#paypal-smart-button-${tierId}`;
+    if (!document.querySelector(targetElementId)) return;
+
+    paypal.Buttons({
+        style: {
+            layout: 'horizontal',
+            color:  'gold',
+            shape:  'rect',
+            label:  'pay',
+            height: 40
+        },
+        createOrder: async function(data, actions) {
+            // Communications handshake back to Kundali AI system pipeline api route
+            const response = await fetch("https://kundali-ai.sundardumre.com.np/api/create-paypal-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tier: tierId, amount: priceValue })
+            });
+            const orderData = await response.json();
+            return orderData.id; // Returns remote system tracking order identification token string
+        },
+        onApprove: async function(data, actions) {
+            // Capture transactional settlement signature trace records
+            const response = await fetch(`https://kundali-ai.sundardumre.com.np/api/capture-paypal-order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ orderID: data.orderID })
+            });
+            const captureDetails = await response.json();
+            
+            if (captureDetails.status === "COMPLETED") {
+                alert(`🚀 Transaction captured via PayPal Stack! Node activated for: [${tierId}]`);
+                window.location.href = "payment-success.html";
+            } else {
+                alert("❌ Settlement loop breakdown occurred inside foreign clearance hub.");
+            }
+        },
+        onError: function(err) {
+            console.error("PayPal Pipeline Break:", err);
+            alert("❌ Failed to initiate transaction instance through PayPal gateway node cluster.");
+        }
+    }).mount(targetElementId);
+}
+
+// -----------------------------------------------------------
+// 2. EXPLICIT GOOGLE PAY CONFIG VIA STRIPE REQUEST
+// -----------------------------------------------------------
+async function setupStandaloneGooglePayBtn(priceValue, tierId) {
+    const targetSelector = `#stripe-gpay-element-${tierId}`;
+    const containerNode = document.querySelector(targetSelector);
+    if (!containerNode) return;
+
+    const paymentRequest = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: { label: `${tierId} Deployment Node Billing`, amount: priceValue * 100 },
+        requestPayerName: true,
+        requestPayerEmail: true,
+    });
+
+    const elementsInstance = stripe.elements();
+    const prButton = elementsInstance.create('paymentRequestButton', {
+        paymentRequest: paymentRequest,
+        style: { paymentRequestButton: { theme: 'dark', height: '40px' } },
+    });
+
+    const deviceValidationCheckResult = await paymentRequest.canMakePayment();
+    if (deviceValidationCheckResult) {
+        prButton.mount(targetSelector);
+    } else {
+        containerNode.innerHTML = `<div style="grid-column: span 2; font-size:0.7rem; color:var(--text-muted); text-align:center; border:1px dashed rgba(255,255,255,0.05); padding:6px; border-radius:4px;">Google Pay unavailable on this browser agent.</div>`;
+    }
+
+    paymentRequest.on('paymentmethod', async (ev) => {
+        try {
+            const response = await fetch("https://kundali-ai.sundardumre.com.np/api/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: priceValue * 100, currency: "usd" })
+            });
+            const data = await response.json();
+
+            const { error: confirmError } = await stripe.confirmCardPayment(
+                data.clientSecret,
+                { payment_method: ev.paymentMethod.id },
+                { handleActions: false }
+            );
+
+            if (confirmError) {
+                ev.complete('fail');
+                alert(`❌ Checkout Processing Failed: ${confirmError.message}`);
+            } else {
+                ev.complete('success');
+                alert(`🚀 System Deployment Succeeded via dynamic GPay pipeline node.`);
+                window.location.href = "payment-success.html";
+            }
+        } catch (err) {
+            ev.complete('fail');
+            console.error(err);
+        }
+    });
+}
+
+// -----------------------------------------------------------
+// 3. BASELINE DIRECT CREDIT CARD ROUTINE OVERLAY MODULE
+// -----------------------------------------------------------
+async function initializeStripePayment(amount, tierName) {
+    if (amount === 0) {
+        alert("🚀 Sandbox mode active. Free allocation provisioned instantly mapping development parameters.");
+        return;
+    }
+    document.getElementById("stripe-amount-text").textContent = `$${amount}`;
+    document.getElementById("stripe-overlay-container").style.display = "flex";
+    
+    const response = await fetch("https://kundali-ai.sundardumre.com.np/api/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amount * 100, currency: "usd" })
+    });
+    const data = await response.json();
+
+    stripeElements = stripe.elements({ clientSecret: data.clientSecret });
+    const cardPaymentElement = stripeElements.create("payment");
+    cardPaymentElement.mount("#stripe-payment-element");
+}
+
+function closeStripePortal() {
+    document.getElementById("stripe-overlay-container").style.display = "none";
+}
+
+function processLocalWallet(vendor, cost, tier) {
+    alert(`💸 Routing secure local ledger to [${vendor.toUpperCase()}] framework: Processing $${cost} allocation for ${tier}.`);
+}
+
+
+
+
 // ===================================================
 // 1. FIREBASE ARCHITECTURE ENVIRONMENT SPECIFICATION
 // ===================================================

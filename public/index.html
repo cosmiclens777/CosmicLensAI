@@ -239,10 +239,12 @@
         </div>
     </section>
 
+      <!-- PRICING MATRIX COVERS STRIPE, EXPLICIT GOOGLE PAY & FULL PAYPAL PLUGINS -->
     <section id="pricing">
         <div class="section-header"><h2>Predictable Pricing Built to Scale</h2></div>
         <div class="pricing-grid">
             
+            <!-- Tier 1: Sandbox -->
             <div class="price-card glassmorphism" id="tier-card-Sandbox">
                 <h3>Sandbox</h3>
                 <div class="price-value">$0<span>/forever</span></div>
@@ -250,13 +252,18 @@
                 <button onclick="toggleGridPayments('Sandbox', 0)" class="tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processPayment('esewa', 0, 'Sandbox')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
-                    <button onclick="processPayment('khalti', 0, 'Sandbox')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
-                    <button onclick="processPayment('upi', 0, 'Sandbox')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
-                    <button onclick="processPayment('paypal', 0, 'Sandbox')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                    <button onclick="processLocalWallet('esewa', 0, 'Sandbox')" class="grid-pay-btn esewa-g">eSewa</button>
+                    <button onclick="processLocalWallet('khalti', 0, 'Sandbox')" class="grid-pay-btn khalti-g">Khalti</button>
+                    <button onclick="processLocalWallet('upi', 0, 'Sandbox')" class="grid-pay-btn upi-g">UPI Pay</button>
+                    <button onclick="initializeStripePayment(0, 'Sandbox')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    
+                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
+                    <div id="stripe-gpay-element-Sandbox" class="gpay-inline-wrapper"></div>
+                    <div id="paypal-smart-button-Sandbox" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
 
+            <!-- Tier 2: Production -->
             <div class="price-card glassmorphism popular-tier" id="tier-card-Production">
                 <div class="popular-ribbon">Highly Recommended</div>
                 <h3>Production</h3>
@@ -265,13 +272,18 @@
                 <button onclick="toggleGridPayments('Production', 19)" class="tier-btn primary-tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processPayment('esewa', 19, 'Production')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
-                    <button onclick="processPayment('khalti', 19, 'Production')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
-                    <button onclick="processPayment('upi', 19, 'Production')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
-                    <button onclick="processPayment('paypal', 19, 'Production')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                    <button onclick="processLocalWallet('esewa', 19, 'Production')" class="grid-pay-btn esewa-g">eSewa</button>
+                    <button onclick="processLocalWallet('khalti', 19, 'Production')" class="grid-pay-btn khalti-g">Khalti</button>
+                    <button onclick="processLocalWallet('upi', 19, 'Production')" class="grid-pay-btn upi-g">UPI Pay</button>
+                    <button onclick="initializeStripePayment(19, 'Production')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    
+                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
+                    <div id="stripe-gpay-element-Production" class="gpay-inline-wrapper"></div>
+                    <div id="paypal-smart-button-Production" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
 
+            <!-- Tier 3: Enterprise -->
             <div class="price-card glassmorphism" id="tier-card-Enterprise">
                 <h3>Enterprise</h3>
                 <div class="price-value">$99<span>/mo</span></div>
@@ -279,14 +291,48 @@
                 <button onclick="toggleGridPayments('Enterprise', 99)" class="tier-btn">Select Dev Infrastructure</button>
                 
                 <div class="tier-payment-matrix">
-                    <button onclick="processPayment('esewa', 99, 'Enterprise')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
-                    <button onclick="processPayment('khalti', 99, 'Enterprise')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
-                    <button onclick="processPayment('upi', 99, 'Enterprise')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
-                    <button onclick="processPayment('paypal', 99, 'Enterprise')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                    <button onclick="processLocalWallet('esewa', 99, 'Enterprise')" class="grid-pay-btn esewa-g">eSewa</button>
+                    <button onclick="processLocalWallet('khalti', 99, 'Enterprise')" class="grid-pay-btn khalti-g">Khalti</button>
+                    <button onclick="processLocalWallet('upi', 99, 'Enterprise')" class="grid-pay-btn upi-g">UPI Pay</button>
+                    <button onclick="initializeStripePayment(99, 'Enterprise')" class="grid-pay-btn stripe-g" style="background: #635bff !important;">Cards</button>
+                    
+                    <!-- Direct Hardware Native Layers Buttons Target Nodes -->
+                    <div id="stripe-gpay-element-Enterprise" class="gpay-inline-wrapper"></div>
+                    <div id="paypal-smart-button-Enterprise" class="paypal-inline-wrapper"></div>
                 </div>
             </div>
         </div>
+
+        <!-- ACCORDION MODAL CONTAINER FOR PLAIN CREDIT CARDS STRIPE OVERLAY -->
+        <div id="stripe-overlay-container" class="custom-modal-overlay" style="display: none;">
+            <div class="modal-content glassmorphism" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h3>Secure Stripe Element Gateway</h3>
+                    <button onclick="closeStripePortal()" class="close-modal-btn">&times;</button>
+                </div>
+                <p class="modal-summary">Billing Target Amount: <strong id="stripe-amount-text">$0</strong></p>
+                <form id="stripe-payment-form" onsubmit="executeStripePaymentConfirm(event)">
+                    <div id="stripe-payment-element" style="margin-bottom: 20px;"></div>
+                    <button id="stripe-submit-btn" class="auth-action-btn" style="background: #635bff;">Process Invoice Token</button>
+                    <div id="stripe-error-message" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none;"></div>
+                </form>
+            </div>
+        </div>
     </section>
+
+    <!-- Embedded Grid Inline Style Patches -->
+    <style>
+        .gpay-inline-wrapper, .paypal-inline-wrapper {
+            grid-column: span 2;
+            min-height: 40px;
+            margin-top: 6px;
+        }
+    </style>
+
+    <!-- LOAD EXTERNAL GLOBAL CORE TRANSACTION SDK CHANNELS -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+    <script src="js/app.js"></script>
 
     <section id="testimonials" class="testimonials-section">
         <div class="section-header">
