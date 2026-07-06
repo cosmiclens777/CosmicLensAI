@@ -1,3 +1,146 @@
+
+// ===================================================================
+// DYNAMIC API DOCUMENTATION ROUTER & MOCK DATABASE METRIC STACKS
+// ===================================================================
+
+const ROUTE_DOCUMENTATION_DATABASE = {
+    birth: {
+        title: "Foundational Birth Chart Sync",
+        url: `${SERVER_BACKEND_ENDPOINT}/api/v1/chart/birth`,
+        scope: "Commercial Scope: System Profiling Engine",
+        desc: "Computes the absolute planetary longitude alignments mapped directly through native C++ ephemeris computation routines at the exact coordinates of birth time matrices.",
+        request: JSON.stringify({
+            year: 2026,
+            month: 7,
+            day: 6,
+            hours: 16,
+            minutes: 11,
+            coordinates: { latitude: 27.7172, longitude: 85.3240, timezone: 5.75 }
+        }, null, 4),
+        response: JSON.stringify({
+            status: "success",
+            latency: "42ms",
+            data: {
+                ascendant: { sign: "Virgo", degree: 14.238 },
+                planets: { Sun: { sign: "Gemini", degree: 20.45 }, Moon: { sign: "Aries", degree: 3.12 } }
+            }
+        }, null, 4)
+    },
+    panchang: {
+        title: "Daily Panchang Engine Node",
+        url: `${SERVER_BACKEND_ENDPOINT}/api/v1/panchang/metrics`,
+        scope: "Commercial Scope: Micro-Muhurta Temporal Tracking",
+        desc: "Resolves fundamental cosmic daily attributes including Tithi, Nakshatra, Yoga, Karana, and specific tracking loops for localized Rahu Kaal anomalies.",
+        request: JSON.stringify({
+            date: "2026-07-06",
+            latitude: 27.7172,
+            longitude: 85.3240,
+            timezone: 5.75
+        }, null, 4),
+        response: JSON.stringify({
+            status: "success",
+            metrics: {
+                tithi: { name: "Krishna Saptami", end_time: "2026-07-06T22:15:00Z" },
+                nakshatra: { name: "Ashwini", ruling_planet: "Ketu" }
+            }
+        }, null, 4)
+    },
+    dasha: {
+        title: "Chronological Vimshottari Dasha Engine",
+        url: `${SERVER_BACKEND_ENDPOINT}/api/v1/astrology/dasha-tree`,
+        scope: "Commercial Scope: Chronological Life Metrics Monitoring",
+        desc: "Generates highly granular, 120-year multi-nested planetary operational sequence timelines computed directly from precise lunar longitudes.",
+        request: JSON.stringify({
+            birth_moon_degree: 3.12,
+            birth_nakshatra: "Ashwini",
+            max_nested_level: 3
+        }, null, 4),
+        response: JSON.stringify({
+            status: "success",
+            mahadashas: [
+                { planet: "Ketu", start: "2024-03-01", end: "2031-03-01", antardashas: [
+                    { planet: "Ketu", start: "2024-03-01", end: "2024-07-28" }
+                ]}
+            ]
+        }, null, 4)
+    },
+    ai: {
+        title: "AI Interpretation Framework",
+        url: `${SERVER_BACKEND_ENDPOINT}/api/v1/intelligence/interpret`,
+        scope: "Commercial Scope: Dynamic Generative Synthesis Parsing",
+        desc: "Pipes calculated mathematical chart parameters directly into contextual transformers to generate natural language interpretations.",
+        request: JSON.stringify({
+            planetary_positions: "Sun in Gemini, Moon in Aries",
+            aspects: ["Mars square Saturn"],
+            locale: "en"
+        }, null, 4),
+        response: JSON.stringify({
+            status: "success",
+            ai_synthesis: "The presence of the Moon in Aries brings a dynamic, proactive mindset, while the Sun in Gemini amplifies communication channels..."
+        }, null, 4)
+    }
+};
+
+// --- INITIALIZE DOCUMENTATION CONTROL EVENT STREAM ---
+document.addEventListener("DOMContentLoaded", () => {
+    initializeApiDocumentationRouter();
+    mockFirebaseUserEnvironmentState();
+});
+
+function initializeApiDocumentationRouter() {
+    const tabTriggers = document.querySelectorAll(".tab-link");
+    
+    // Set default initial rendering targets
+    renderApiRouteDisplayPanel("birth");
+
+    tabTriggers.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            // Remove previous active rendering configuration states
+            tabTriggers.forEach(t => t.classList.remove("active"));
+            
+            // Activate clicked state target
+            btn.classList.add("active");
+            
+            const targetRouteKey = btn.getAttribute("data-route");
+            renderApiRouteDisplayPanel(targetRouteKey);
+        });
+    });
+}
+
+function renderApiRouteDisplayPanel(routeKey) {
+    const dataNode = ROUTE_DOCUMENTATION_DATABASE[routeKey];
+    if (!dataNode) return;
+
+    // DOM Target Injection Points
+    document.getElementById("active-route-url").textContent = dataNode.url;
+    document.getElementById("route-title").textContent = dataNode.title;
+    document.getElementById("route-description").textContent = dataNode.desc;
+    document.getElementById("route-biz-scope").innerHTML = `<strong>Commercial Scope:</strong> ${dataNode.scope}`;
+    document.getElementById("request-payload").textContent = dataNode.request;
+    document.getElementById("response-payload").textContent = dataNode.response;
+}
+
+// -------------------------------------------------------------------
+// FIREBASE AUTH DUMMY STATE WORKER FOR UI PREVIEW
+// -------------------------------------------------------------------
+function mockFirebaseUserEnvironmentState() {
+    const tokenDisplay = document.getElementById("client-token-display");
+    const userTag = document.getElementById("user-profile-tag");
+    const navAuthBtn = document.getElementById("nav-auth-btn");
+
+    // Mock verification check: standard production safety checks
+    setTimeout(() => {
+        if (tokenDisplay) {
+            tokenDisplay.textContent = "sk_live_2026_cosmic_lens_sundar_dumre_9941x";
+        }
+        if (userTag && navAuthBtn) {
+            userTag.innerHTML = `👋 Dev mode: <span style="color:#10b981; font-weight:700;">Er. Sundar Dumre</span>`;
+            navAuthBtn.textContent = "Dashboard";
+            navAuthBtn.href = "#dashboard";
+        }
+    }, 800);
+}
+
 // ===================================================================
 // KUNDALI AI TRANSACTION & ELEMENT MANAGEMENT SYSTEM HUB
 // ===================================================================

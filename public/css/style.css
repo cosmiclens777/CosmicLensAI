@@ -244,3 +244,181 @@ footer small { font-size: 0.8rem; color: rgba(255,255,255,0.2); }
     .section-header h2 { font-size: 1.75rem; }
     .price-card { padding: 30px 20px; }
 }
+
+/* ===================================================================
+   AUTHENTICATION PROTOCOL & API SPECIFICATION PANEL STYLES
+   =================================================================== */
+
+.docs-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.docs-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Auth Key Box Wrapper */
+.auth-box {
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    background: rgba(30, 27, 57, 0.4);
+    border: 1px solid rgba(138, 92, 246, 0.15);
+}
+
+.auth-box h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+    color: var(--text-pure);
+}
+
+/* Header Tags & API Keys Presentation formatting */
+.header-tag {
+    background: rgba(10, 8, 20, 0.6);
+    border-left: 3px solid var(--primary-cosmic);
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+}
+
+.header-tag code {
+    font-family: monospace;
+    color: #f472b6; /* Hot Pink highlighted for token visibility */
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    word-break: break-all; /* Mobile safety wrapper */
+}
+
+/* Route Tabs Layout Controller */
+.route-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tab-link {
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass-edge);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-link.active, .tab-link:hover {
+    background: rgba(138, 92, 246, 0.1);
+    border-color: var(--primary-cosmic);
+    color: var(--text-pure);
+}
+
+/* Code Display Sandbox */
+.docs-display {
+    padding: 30px;
+}
+
+.display-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border-glass-edge);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.method-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.method-badge.post {
+    background: #ec4899;
+    color: var(--text-pure);
+}
+
+.target-route {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--accent-emerald);
+    word-break: break-all;
+}
+
+.doc-body-content h4 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.biz-badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--accent-emerald);
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.code-wrapper {
+    margin-top: 15px;
+}
+
+.code-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.code-wrapper pre {
+    background: #070510;
+    border: 1px solid var(--border-glass-edge);
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.code-wrapper code {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #a78bfa;
+}
+
+/* ===================================================================
+   AUTHENTICATION RESPONSIVE MEDIA BREAKPOINTS
+   =================================================================== */
+@media (max-width: 968px) {
+    .docs-layout {
+        grid-template-columns: 1fr; /* Stack vertically on small screens */
+    }
+    .route-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2x2 buttons layout on Tablet/Mobile */
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .route-tabs {
+        grid-template-columns: 1fr; /* Single column on tiny smartphones */
+    }
+    .docs-display {
+        padding: 16px;
+    }
+}
