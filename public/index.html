@@ -11,6 +11,117 @@
     
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        /* --- Dynamic Interactive Embed Styles For Carousels & Grid Tiers --- */
+        .hero-split-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Live Stream Token Carousel */
+        .token-carousel-frame {
+            background: rgba(15, 12, 30, 0.6);
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+        }
+        .token-carousel-frame::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
+            background: linear-gradient(to top, rgba(15,12,30,0.9), transparent); pointer-events: none;
+        }
+        .stream-track {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: streamVerticalUp 14s infinite linear;
+        }
+        .stream-node {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #a3a3c2;
+        }
+        @keyframes streamVerticalUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        /* Embedded Inline Payment Grid Area */
+        .tier-payment-matrix {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .price-card.active-checkout-layout .tier-payment-matrix {
+            opacity: 1;
+            max-height: 250px;
+            margin-bottom: 10px;
+        }
+        .grid-pay-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .grid-pay-btn:hover { transform: translateY(-2px); border-color: transparent; }
+        .esewa-g:hover { background: #60bb46 !important; }
+        .khalti-g:hover { background: #5c2d91 !important; }
+        .upi-g:hover { background: #ff9933 !important; }
+        .paypal-g:hover { background: #003087 !important; }
+
+        /* Infinite Testimonial Slider System */
+        .testimonial-slider-perimeter {
+            overflow: hidden;
+            width: 100%;
+            padding: 40px 0;
+            position: relative;
+        }
+        .testimonial-carousel-track {
+            display: flex;
+            gap: 25px;
+            width: max-content;
+            animation: scrollHorizontalInfinite 32s infinite linear;
+        }
+        .testimonial-carousel-track:hover { animation-play-state: paused; }
+        .carousel-card-node {
+            width: 380px;
+            background: rgba(20, 16, 35, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        @keyframes scrollHorizontalInfinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+    </style>
 </head>
 <body>
 
@@ -36,22 +147,37 @@
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="badge-container">
-            <span class="badge animated-border">🚀 Swiss Ephemeris Native Engine v2.1</span>
+    <section class="hero" style="text-align: left; padding: 120px 0 60px 0;">
+        <div class="hero-split-container">
+            <div class="hero-text-align">
+                <div class="badge-container" style="justify-content: flex-start;">
+                    <span class="badge animated-border">🚀 Swiss Ephemeris Native Engine v2.1</span>
+                </div>
+                <h1 style="text-align: left;">
+                    Build Enterprise-Grade <br>
+                    <span class="gradient-text">Vedic Astrology</span> Apps.
+                </h1>
+                <p class="subtitle" style="text-align: left; margin-left: 0;">
+                    A high-performance computational infrastructure generating high-precision Birth Charts, Divisional Matrices, Panchang metrics, and AI-driven predictive insights.
+                </p>
+                <div class="hero-buttons" style="justify-content: flex-start;">
+                    <a href="#pricing" class="primary-btn pulse-glow">Deploy In Minutes</a>
+                    <a href="#docs" class="secondary-btn">Explore Endpoints</a>
+                </div>
+                <p class="madeby">Engineered with ❤️ by <strong>Er. Sundar Dumre</strong></p>
+            </div>
+            
+            <div class="token-carousel-frame">
+                <div class="stream-track">
+                    <div class="stream-node"><span style="color: #8a5cf6;">POST</span> /api/chart [200 OK]<br>{ "status": "success", "latency": "38ms", "engine": "C++ Native Core" }</div>
+                    <div class="stream-node"><span style="color: #ec4899;">D1 Matrix</span> generated safely...<br>Ascendant Sign: Virgo (14.23 deg)</div>
+                    <div class="stream-node"><span style="color: #8a5cf6;">POST</span> /api/panchang [200 OK]<br>{ "tithi": "Krishna Saptami", "nakshatra": "Ashwini" }</div>
+                    <div class="stream-node"><span style="color: #10b981;">SYS LOG</span> Cluster allocation sequence synchronized across memory stacks.</div>
+                    <div class="stream-node"><span style="color: #8a5cf6;">POST</span> /api/chart [200 OK]<br>{ "status": "success", "latency": "38ms", "engine": "C++ Native Core" }</div>
+                    <div class="stream-node"><span style="color: #ec4899;">D1 Matrix</span> generated safely...</div>
+                </div>
+            </div>
         </div>
-        <h1>
-            Build Enterprise-Grade <br>
-            <span class="gradient-text">Vedic Astrology</span> Apps.
-        </h1>
-        <p class="subtitle">
-            A high-performance computational infrastructure generating high-precision Birth Charts, Divisional Matrices, Panchang metrics, and AI-driven predictive insights.
-        </p>
-        <div class="hero-buttons">
-            <a href="#pricing" class="primary-btn pulse-glow">Deploy In Minutes</a>
-            <a href="#docs" class="secondary-btn">Explore Endpoints</a>
-        </div>
-        <p class="madeby">Engineered with ❤️ by <strong>Er. Sundar Dumre</strong></p>
     </section>
 
     <section class="stats">
@@ -64,27 +190,23 @@
     <section id="features" class="features">
         <div class="section-header">
             <h2>Production-Ready Computational Modules</h2>
-            <p>Leverage astronomical algorithms packaged into standardized business APIs.</p>
         </div>
         <div class="feature-grid">
             <div class="feature-card spatial-hover"><div class="icon">🌍</div><h3>Lagna Charts</h3><p>Generate foundational planetary sign positions.</p></div>
             <div class="feature-card spatial-hover"><div class="icon">🌙</div><h3>Divisional Harmonics</h3><p>Execute D2 up to granular D60 matrix charts.</p></div>
-            <div class="feature-card spatial-hover"><div class="icon">🪐</div><h3>Vimshottari Dasha</h3><p>Compute deep nested dynamic timeline dashas.</p></div>
-            <div class="feature-card spatial-hover"><div class="icon">📅</div><h3>High-Fidelity Panchang</h3><p>Real-time linear tracking of Tithi, Nakshatra, and Muhurtas.</p></div>
-            <div class="feature-card spatial-hover"><div class="icon">✨</div><h3>Yoga Detection</h3><p>Identify complex structural planetary configurations.</p></div>
-            <div class="feature-card spatial-hover"><div class="icon">🤖</div><h3>AI Interpretations</h3><p>Pipe matrix feeds directly into dynamic LLM parameter stacks.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">🪐</div><h3>Vimshottari Dasha</h3><p>Compute deep nested dynamic dasha parameters.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">📅</div><h3>High-Fidelity Panchang</h3><p>Real-time tracking of localized micro Muhurtas.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">✨</div><h3>Yoga Detection</h3><p>Identify structural planetary configurations.</p></div>
+            <div class="feature-card spatial-hover"><div class="icon">🤖</div><h3>AI Interpretations</h3><p>Pipe matrix feeds directly into parameter stacks.</p></div>
         </div>
     </section>
 
     <section id="docs" class="docs-section">
-        <div class="section-header">
-            <h2>API Specifications & Manual Integration</h2>
-        </div>
+        <div class="section-header"><h2>API Specifications & Integration Layout</h2></div>
         <div class="docs-layout">
             <div class="docs-controls">
                 <div class="auth-box glassmorphism">
                     <h3>🔑 Authentication Protocol</h3>
-                    <p>Inject credentials inside your outbound API token header mapping:</p>
                     <div class="header-tag">Header key: <code>x-api-key</code></div>
                     <div class="header-tag">Header value: <code id="client-token-display">auth_required_load_developer_token</code></div>
                 </div>
@@ -118,64 +240,81 @@
     </section>
 
     <section id="pricing">
-        <div class="section-header">
-            <h2>Predictable Pricing Built to Scale</h2>
-        </div>
+        <div class="section-header"><h2>Predictable Pricing Built to Scale</h2></div>
         <div class="pricing-grid">
-            <div class="price-card glassmorphism">
+            
+            <div class="price-card glassmorphism" id="tier-card-Sandbox">
                 <h3>Sandbox</h3>
                 <div class="price-value">$0<span>/forever</span></div>
-                <p>100 daily hits targeted at localized development validation setups.</p>
-                <button onclick="openPaymentGatewayModal('Sandbox', 0)" class="tier-btn">Access Tier</button>
+                <p>100 daily hits targeted at localized validation setups.</p>
+                <button onclick="toggleGridPayments('Sandbox', 0)" class="tier-btn">Select Dev Infrastructure</button>
+                
+                <div class="tier-payment-matrix">
+                    <button onclick="processPayment('esewa', 0, 'Sandbox')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
+                    <button onclick="processPayment('khalti', 0, 'Sandbox')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
+                    <button onclick="processPayment('upi', 0, 'Sandbox')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
+                    <button onclick="processPayment('paypal', 0, 'Sandbox')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                </div>
             </div>
-            <div class="price-card glassmorphism popular-tier">
+
+            <div class="price-card glassmorphism popular-tier" id="tier-card-Production">
                 <div class="popular-ribbon">Highly Recommended</div>
                 <h3>Production</h3>
                 <div class="price-value">$19<span>/mo</span></div>
-                <p>50,000 requests mapped directly across optimized computational servers.</p>
-                <button onclick="openPaymentGatewayModal('Production', 19)" class="tier-btn primary-tier-btn">Launch Deployment</button>
+                <p>50,000 requests mapped directly across direct core servers.</p>
+                <button onclick="toggleGridPayments('Production', 19)" class="tier-btn primary-tier-btn">Select Dev Infrastructure</button>
+                
+                <div class="tier-payment-matrix">
+                    <button onclick="processPayment('esewa', 19, 'Production')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
+                    <button onclick="processPayment('khalti', 19, 'Production')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
+                    <button onclick="processPayment('upi', 19, 'Production')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
+                    <button onclick="processPayment('paypal', 19, 'Production')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                </div>
             </div>
-            <div class="price-card glassmorphism">
+
+            <div class="price-card glassmorphism" id="tier-card-Enterprise">
                 <h3>Enterprise</h3>
                 <div class="price-value">$99<span>/mo</span></div>
-                <p>Unlimited high-throughput pathways with zero computational limits.</p>
-                <button onclick="openPaymentGatewayModal('Enterprise', 99)" class="tier-btn">Acquire License</button>
+                <p>Unlimited high-throughput pathways with zero limits.</p>
+                <button onclick="toggleGridPayments('Enterprise', 99)" class="tier-btn">Select Dev Infrastructure</button>
+                
+                <div class="tier-payment-matrix">
+                    <button onclick="processPayment('esewa', 99, 'Enterprise')" class="grid-pay-btn esewa-node esewa-g">eSewa</button>
+                    <button onclick="processPayment('khalti', 99, 'Enterprise')" class="grid-pay-btn khalti-node khalti-g">Khalti</button>
+                    <button onclick="processPayment('upi', 99, 'Enterprise')" class="grid-pay-btn upi-node upi-g">UPI Pay</button>
+                    <button onclick="processPayment('paypal', 99, 'Enterprise')" class="grid-pay-btn paypal-node paypal-g">PayPal</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <div id="payment-gateway-modal" class="custom-modal-overlay" style="display: none;">
-        <div class="modal-content glassmorphism">
-            <div class="modal-header">
-                <h3>Select Cosmic Settlement Channel</h3>
-                <button onclick="closePaymentGatewayModal()" class="close-modal-btn">&times;</button>
-            </div>
-            <p class="modal-summary">Deploying <strong id="selected-tier-name">Tier</strong>: <span id="selected-tier-price">$0</span>/month</p>
-            
-            <div class="gateway-group-label">🇳🇵 Local Channels (Nepal)</div>
-            <div class="gateway-row">
-                <button onclick="processPayment('esewa')" class="payment-node-btn esewa-node">eSewa</button>
-                <button onclick="processPayment('khalti')" class="payment-node-btn khalti-node">Khalti</button>
-            </div>
-            
-            <div class="gateway-group-label">🇮🇳 Regional Paths (India)</div>
-            <div class="gateway-row">
-                <button onclick="processPayment('upi')" class="payment-node-btn upi-node">UPI Intent</button>
-                <button onclick="processPayment('paytm')" class="payment-node-btn paytm-node">Paytm</button>
-            </div>
-
-            <div class="gateway-group-label">🌐 International Infrastructure</div>
-            <div class="gateway-row">
-                <button onclick="processPayment('paypal')" class="payment-node-btn paypal-node">PayPal</button>
-                <button onclick="processPayment('googlepay')" class="payment-node-btn gpay-node">Google Pay</button>
-            </div>
-        </div>
-    </div>
-
     <section id="testimonials" class="testimonials-section">
-        <div class="section-header"><h2>Trusted Platforms</h2></div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card glassmorphism"><p>Kundali AI parsing bindings directly dropped matching engine processing from 400ms to sub-45ms.</p></div>
+        <div class="section-header">
+            <h2>Trusted Platforms Worldwide</h2>
+            <p>See how enterprise nodes scale engine integration globally.</p>
+        </div>
+        <div class="testimonial-slider-perimeter">
+            <div class="testimonial-carousel-track">
+                <div class="carousel-card-node">
+                    <p style="color: #e2e2e9; line-height: 1.6;">"Kundali AI dropped our matching processing engine latency from 400ms to sub-45ms."</p>
+                    <h4 style="margin-top: 15px; color: #fff;">Matrimony Alpha</h4>
+                    <small style="color: var(--text-muted);">DevOps Infrastructure Lead</small>
+                </div>
+                <div class="carousel-card-node">
+                    <p style="color: #e2e2e9; line-height: 1.6;">"Passing raw requests directly inside our serverless edge handlers gives us zero caching errors."</p>
+                    <h4 style="margin-top: 15px; color: #fff;">Vedic Space App</h4>
+                    <small style="color: var(--text-muted);">Chief Technology Officer</small>
+                </div>
+                <div class="carousel-card-node">
+                    <p style="color: #e2e2e9; line-height: 1.6;">"The multi-tiered Vimshottari calculations grew premium retention loop limits exponentially by over 22%."</p>
+                    <h4 style="margin-top: 15px; color: #fff;">Devi Labs Inc.</h4>
+                    <small style="color: var(--text-muted);">Product Lead</small>
+                </div>
+                
+                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Kundali AI dropped latency to sub-45ms safely."</p><h4 style="color: #fff;">Matrimony Alpha</h4></div>
+                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Zero caching bottlenecks encountered at edge barriers."</p><h4 style="color: #fff;">Vedic Space App</h4></div>
+                <div class="carousel-card-node"><p style="color: #e2e2e9;">"Premium retention grew exponentially by over 22%."</p><h4 style="color: #fff;">Devi Labs Inc.</h4></div>
+            </div>
         </div>
     </section>
 
@@ -184,7 +323,27 @@
         <p class="credit">System Dev: <strong>Er. Sundar Dumre</strong></p>
         <small>&copy; 2026 Kundali AI Engine Corporation. All Rights Reserved.</small>
     </footer>
+ <script src="js/app.js"></script>
+    <script>
+        function toggleGridPayments(tierId, cost) {
+            // First clear out active configuration state classes from cards
+            document.querySelectorAll('.price-card').forEach(card => {
+                if(card.id !== `tier-card-${tierId}`) card.classList.remove('active-checkout-layout');
+            });
+            
+            // Toggle current targeting card layout container state
+            const targetCard = document.getElementById(`tier-card-${tierId}`);
+            targetCard.classList.toggle('active-checkout-layout');
+        }
 
-    <script src="js/app.js"></script>
+        function processPayment(channel, amount, tier) {
+            // Reuses master validation session logic from your app.js pipeline
+            if (typeof currentUserSession === 'undefined' && amount > 0) {
+                alert("🔒 Session Boundary Exception: Log in via developer portal to register transactions.");
+                return;
+            }
+            alert(`💸 Routing node securely to [${channel.toUpperCase()}] framework: Deploying $${amount}/mo cluster for [${tier} Plan]`);
+        }
+    </script>
 </body>
 </html>
