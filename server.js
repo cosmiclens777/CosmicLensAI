@@ -5,7 +5,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import routes from "./routes/index.js";
-
 dotenv.config();
 
 const app = express();
