@@ -43,7 +43,6 @@
 //     }
 // };
 
-
 import { GoogleGenAI, Type } from '@google/genai';
 
 export const generateQuiz = async(req, res) => {
